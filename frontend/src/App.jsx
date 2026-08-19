@@ -5,8 +5,12 @@ import TimelineView from './components/TimelineView';
 import LineageGraphView from './components/LineageGraphView';
 import IngestionView from './components/IngestionView';
 import EvidenceModal from './components/EvidenceModal';
+import HeroTemporalTree from './components/graphics/HeroTemporalTree';
+import BenchmarkChart from './components/graphics/BenchmarkChart';
+import ArchitectureOverview from './components/graphics/ArchitectureOverview';
+import IsometricTierDiagram from './components/graphics/IsometricTierDiagram';
 import { checkHealth, loadDemoScenario } from './api';
-import { ShieldCheck, Cpu, Database, Activity, GitBranch, ArrowUpRight, Zap, CheckCircle2, Lock } from 'lucide-react';
+import { ShieldCheck, Cpu, Database, Activity, GitBranch, ArrowUpRight, Zap, CheckCircle2, Lock, ExternalLink } from 'lucide-react';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('query');
@@ -34,7 +38,7 @@ export default function App() {
     setEvidenceModalOpen(true);
   };
 
-  // Preset 1: Sequential Change
+  // Presets
   const handleLoadEditorScenario = async () => {
     setSubjectId('user');
     setPredicate('favorite_editor');
@@ -46,7 +50,6 @@ export default function App() {
     }
   };
 
-  // Preset 2: Contradiction
   const handleLoadContradictionScenario = async () => {
     setSubjectId('user');
     setPredicate('location');
@@ -58,7 +61,6 @@ export default function App() {
     }
   };
 
-  // Preset 3: Absent Fact (UNKNOWN)
   const handleLoadAbsentQuery = async () => {
     setSubjectId('user');
     setPredicate('favorite_language');
@@ -71,177 +73,235 @@ export default function App() {
   };
 
   return (
-    <div className="app-container">
+    <div style={{ minHeight: '100vh', background: '#000000', color: '#FFFFFF', display: 'flex', flexDirection: 'column' }}>
       
-      {/* Top Header */}
-      <Header
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        healthStatus={healthStatus}
-        onLoadEditorScenario={handleLoadEditorScenario}
-        onLoadContradictionScenario={handleLoadContradictionScenario}
-        onLoadAbsentQuery={handleLoadAbsentQuery}
-      />
-
-      {/* HydraDB Black & Cyber Blue Hero Section */}
-      <section style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', padding: '2rem 0', textAlign: 'center', alignItems: 'center' }}>
-        <span className="eyebrow-badge">
-          ⚡ HACK HYDRA 2026 — TRACK 3: MEMORY & CONTEXT RETRIEVAL
+      {/* Top Announcement Bar (HydraDB Style) */}
+      <div style={{ background: '#080A0F', borderBottom: '1px solid #1F2430', padding: '0.5rem 1rem', textAlign: 'center', fontSize: '0.75rem', fontFamily: "'JetBrains Mono', monospace", display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.75rem' }}>
+        <span style={{ background: '#3B82F6', color: '#FFFFFF', padding: '0.1rem 0.5rem', borderRadius: '4px', fontWeight: '700', textTransform: 'uppercase' }}>
+          ANNOUNCEMENT
         </span>
+        <span style={{ color: '#94A3B8' }}>
+          ChronoGraph v1.3.0 is live on Vercel & GitHub with 100% benchmark accuracy.
+        </span>
+        <a href="https://github.com/23f3001874/chronograph" target="_blank" rel="noopener noreferrer" style={{ color: '#00F0FF', textDecoration: 'none', fontWeight: '700', display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
+          View on GitHub <ArrowUpRight size={12} />
+        </a>
+      </div>
 
-        <h1 style={{ fontSize: '3rem', fontWeight: '800', letterSpacing: '-0.04em', lineHeight: '1.1', maxWidth: '900px', color: '#FFFFFF' }}>
-          Temporal Memory & Epistemic Reasoning for AI Agents
-        </h1>
+      <div className="app-container">
+        
+        {/* Header */}
+        <Header
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          healthStatus={healthStatus}
+          onLoadEditorScenario={handleLoadEditorScenario}
+          onLoadContradictionScenario={handleLoadContradictionScenario}
+          onLoadAbsentQuery={handleLoadAbsentQuery}
+        />
 
-        <p style={{ fontSize: '1.125rem', color: '#94A3B8', maxWidth: '780px', lineHeight: '1.6' }}>
-          Stop future knowledge leakage. ChronoGraph models temporal validity intervals <code style={{ color: '#00F0FF', background: 'rgba(59, 130, 246, 0.1)', padding: '0.1rem 0.4rem', borderRadius: '4px' }}>[valid_from, valid_until)</code> and belief state machines on top of <strong style={{ color: '#FFFFFF' }}>HydraDB Cloud</strong> — resolving point-in-time facts, flagging active contradictions, and abstaining deterministically when evidence is absent.
-        </p>
+        {/* HERO SECTION (Matching Screenshot 1) */}
+        <section style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2.5rem', alignItems: 'center', padding: '3rem 0 1rem 0' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', textAlign: 'left' }}>
+            <span style={{ color: '#94A3B8', fontFamily: "'JetBrains Mono', monospace", fontSize: '0.8125rem', letterSpacing: '0.05em' }}>
+              Substrate: HydraDB Cloud • Track 3 Memory
+            </span>
 
-        {/* Benchmark Key Metrics Counter Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.25rem', width: '100%', maxWidth: '1100px', marginTop: '1rem' }}>
-          
-          <div className="card" style={{ padding: '1.25rem', textAlign: 'left', background: '#080A0F', border: '1px solid #1F2430' }}>
-            <span style={{ fontSize: '0.75rem', color: '#94A3B8', fontFamily: "'JetBrains Mono', monospace", fontWeight: '700', textTransform: 'uppercase' }}>Benchmark Accuracy</span>
-            <div style={{ fontSize: '2rem', fontWeight: '800', color: '#3B82F6', marginTop: '0.25rem', fontFamily: "'Space Grotesk', sans-serif" }}>
-              100.0%
+            <h1 style={{ fontSize: '3.75rem', fontWeight: '800', letterSpacing: '-0.04em', lineHeight: '1.05', fontFamily: "'Space Grotesk', sans-serif" }}>
+              The Temporal Memory AI Runs On.
+            </h1>
+
+            <p style={{ fontSize: '1.125rem', color: '#94A3B8', lineHeight: '1.6', maxWidth: '540px' }}>
+              Temporal Belief & Epistemic Reasoning Engine built on HydraDB Cloud: <strong style={{ color: '#00F0FF' }}>100% temporal accuracy</strong>, zero future-knowledge leakage, and sub-millisecond point-in-time state resolution.
+            </p>
+
+            <div style={{ display: 'flex', gap: '1rem', marginTop: '0.5rem' }}>
+              <button className="btn btn-primary" style={{ padding: '0.875rem 1.75rem', fontSize: '1rem' }} onClick={() => setActiveTab('query')}>
+                Launch Interactive Playground
+              </button>
+              <a href="https://github.com/23f3001874/chronograph" target="_blank" rel="noopener noreferrer" className="btn btn-secondary" style={{ padding: '0.875rem 1.75rem', fontSize: '1rem', textDecoration: 'none' }}>
+                View GitHub Repo
+              </a>
             </div>
-            <span style={{ fontSize: '0.75rem', color: '#34D399', fontWeight: '600' }}>+70.0% vs Naive Baseline (30%)</span>
           </div>
 
-          <div className="card" style={{ padding: '1.25rem', textAlign: 'left', background: '#080A0F', border: '1px solid #1F2430' }}>
-            <span style={{ fontSize: '0.75rem', color: '#94A3B8', fontFamily: "'JetBrains Mono', monospace", fontWeight: '700', textTransform: 'uppercase' }}>Future Leakage Rate</span>
-            <div style={{ fontSize: '2rem', fontWeight: '800', color: '#00F0FF', marginTop: '0.25rem', fontFamily: "'Space Grotesk', sans-serif" }}>
-              0.0%
+          {/* Hero Pixel Tree Graphic (Matching Screenshot 1) */}
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <HeroTemporalTree />
+          </div>
+        </section>
+
+        {/* BENTO GRID SECTION — "Everything You Need To Compound Intelligence" (Matching Screenshot 2) */}
+        <section style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginTop: '2rem' }}>
+          <h2 style={{ fontSize: '2.25rem', fontWeight: '700', textAlign: 'center', fontFamily: "'Space Grotesk', sans-serif", letterSpacing: '-0.03em' }}>
+            Everything You Need To Compound Temporal Intelligence
+          </h2>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
+            
+            {/* Box 1: High Recall Accuracy (Matching Screenshot 2) */}
+            <div className="card" style={{ background: '#05070B', border: '1px solid #1F2430', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+              <div>
+                <h3 style={{ fontSize: '1.375rem', fontWeight: '700', color: '#FFFFFF' }}>High Temporal Accuracy</h3>
+                <p style={{ fontSize: '0.875rem', color: '#94A3B8', marginTop: '0.5rem' }}>
+                  Proven +70.0 percentage point advantage on sequential preference changes, overlapping location updates, and point-in-time point queries.
+                </p>
+              </div>
+
+              {/* Big Electric Blue Stat Block */}
+              <div style={{ background: 'linear-gradient(135deg, #1D4ED8 0%, #2563EB 50%, #3B82F6 100%)', borderRadius: '12px', padding: '2.5rem 1.5rem', textAlign: 'center', marginTop: '1.5rem', boxShadow: '0 0 30px rgba(37, 99, 235, 0.4)' }}>
+                <div style={{ fontSize: '3.5rem', fontWeight: '800', fontFamily: "'Space Grotesk', sans-serif", color: '#FFFFFF' }}>
+                  100.0%
+                </div>
+                <div style={{ fontSize: '1.125rem', fontWeight: '700', color: '#00F0FF', textTransform: 'uppercase', letterSpacing: '0.05em', fontFamily: "'JetBrains Mono', monospace" }}>
+                  Benchmark Accuracy
+                </div>
+              </div>
             </div>
-            <span style={{ fontSize: '0.75rem', color: '#34D399', fontWeight: '600' }}>Zero Historical Leakage</span>
+
+            {/* Box 2: Scales With Systems (Matching Screenshot 2) */}
+            <div className="card" style={{ background: '#05070B', border: '1px solid #1F2430', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+              <div>
+                <h3 style={{ fontSize: '1.375rem', fontWeight: '700', color: '#FFFFFF' }}>Zero Future Leakage</h3>
+                <p style={{ fontSize: '0.875rem', color: '#94A3B8', marginTop: '0.5rem' }}>
+                  Prevents historical memory contamination by enforcing strict validity intervals <code style={{ color: '#00F0FF' }}>[valid_from, valid_until)</code> across memory tiers.
+                </p>
+              </div>
+
+              {/* Isometric Tier Diagram */}
+              <div style={{ marginTop: '1.5rem' }}>
+                <IsometricTierDiagram />
+              </div>
+            </div>
+
+            {/* Box 3: Epistemic Abstention */}
+            <div className="card" style={{ background: '#05070B', border: '1px solid #1F2430' }}>
+              <h3 style={{ fontSize: '1.375rem', fontWeight: '700', color: '#FFFFFF' }}>Deterministic Abstention</h3>
+              <p style={{ fontSize: '0.875rem', color: '#94A3B8', marginTop: '0.5rem' }}>
+                Returns explicit <code style={{ color: '#FBBF24' }}>UNKNOWN</code> (0.0 confidence) for absent facts instead of hallucinating fallbacks.
+              </p>
+            </div>
+
+            {/* Box 4: Sub-Millisecond Speed */}
+            <div className="card" style={{ background: '#05070B', border: '1px solid #1F2430' }}>
+              <h3 style={{ fontSize: '1.375rem', fontWeight: '700', color: '#FFFFFF' }}>Sub-Millisecond Engine</h3>
+              <p style={{ fontSize: '0.875rem', color: '#94A3B8', marginTop: '0.5rem' }}>
+                Built for high-throughput AI agent workloads with zero retrieval overhead.
+              </p>
+              <div style={{ fontSize: '2rem', fontWeight: '800', color: '#00F0FF', marginTop: '0.75rem', fontFamily: "'Space Grotesk', sans-serif" }}>
+                &lt; 0.1 ms Latency
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        {/* BENCHMARK CURVE CHART SECTION (Matching Screenshot 3) */}
+        <section style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginTop: '3rem' }}>
+          <div style={{ textAlign: 'left' }}>
+            <h2 style={{ fontSize: '2.25rem', fontWeight: '700', fontFamily: "'Space Grotesk', sans-serif", letterSpacing: '-0.03em' }}>
+              Recall & Future Leakage Bottleneck
+            </h2>
+            <p style={{ fontSize: '1rem', color: '#94A3B8', marginTop: '0.5rem' }}>
+              Naive vector databases suffer severe degradation as memory sequence length increases, leaking future facts into past queries.
+            </p>
           </div>
 
-          <div className="card" style={{ padding: '1.25rem', textAlign: 'left', background: '#080A0F', border: '1px solid #1F2430' }}>
-            <span style={{ fontSize: '0.75rem', color: '#94A3B8', fontFamily: "'JetBrains Mono', monospace", fontWeight: '700', textTransform: 'uppercase' }}>Resolution Latency</span>
-            <div style={{ fontSize: '2rem', fontWeight: '800', color: '#38BDF8', marginTop: '0.25rem', fontFamily: "'Space Grotesk', sans-serif" }}>
-              0.092 ms
+          <BenchmarkChart />
+        </section>
+
+        {/* ARCHITECTURE OVERVIEW SECTION (Matching Screenshot 4) */}
+        <section style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginTop: '3rem' }}>
+          <h2 style={{ fontSize: '2.25rem', fontWeight: '700', textAlign: 'center', fontFamily: "'Space Grotesk', sans-serif", letterSpacing: '-0.03em' }}>
+            Architecture Overview
+          </h2>
+
+          <ArchitectureOverview />
+        </section>
+
+        {/* MAIN INTERACTIVE PLAYGROUND STUDIO */}
+        <section style={{ marginTop: '4rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #1F2430', paddingBottom: '1rem' }}>
+            <div>
+              <h2 style={{ fontSize: '2rem', fontWeight: '700', fontFamily: "'Space Grotesk', sans-serif" }}>
+                Interactive ChronoGraph Studio
+              </h2>
+              <p style={{ fontSize: '0.875rem', color: '#94A3B8', marginTop: '0.25rem' }}>
+                Test point-in-time queries ($T$), inspect belief timelines, and verify transition graphs in real time.
+              </p>
             </div>
-            <span style={{ fontSize: '0.75rem', color: '#94A3B8' }}>Sub-Millisecond Engine</span>
           </div>
 
-          <div className="card" style={{ padding: '1.25rem', textAlign: 'left', background: '#080A0F', border: '1px solid #1F2430' }}>
-            <span style={{ fontSize: '0.75rem', color: '#94A3B8', fontFamily: "'JetBrains Mono', monospace", fontWeight: '700', textTransform: 'uppercase' }}>Backend Verification</span>
-            <div style={{ fontSize: '2rem', fontWeight: '800', color: '#34D399', marginTop: '0.25rem', fontFamily: "'Space Grotesk', sans-serif" }}>
-              104 / 104
+          {activeTab === 'query' && (
+            <TemporalQueryView
+              subjectId={subjectId}
+              setSubjectId={setSubjectId}
+              predicate={predicate}
+              setPredicate={setPredicate}
+              onInspectEvidence={handleOpenEvidence}
+            />
+          )}
+
+          {activeTab === 'timeline' && (
+            <TimelineView
+              subjectId={subjectId}
+              predicate={predicate}
+              onSelectBelief={handleSelectBeliefForLineage}
+            />
+          )}
+
+          {activeTab === 'lineage' && (
+            <LineageGraphView
+              beliefId={selectedBeliefId}
+              onInspectEvidence={handleOpenEvidence}
+            />
+          )}
+
+          {activeTab === 'ingest' && (
+            <IngestionView
+              onIngestSuccess={() => setActiveTab('query')}
+            />
+          )}
+        </section>
+
+        {/* Grounded Evidence Modal */}
+        <EvidenceModal
+          isOpen={evidenceModalOpen}
+          onClose={() => setEvidenceModalOpen(false)}
+          evidenceList={evidenceModalData}
+        />
+
+        {/* FOOTER SECTION (Matching Screenshot 5) */}
+        <footer style={{ borderTop: '1px solid #1F2430', padding: '3rem 0 1rem 0', marginTop: '4rem', display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '2rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', textAlign: 'left' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+              <div style={{ background: '#3B82F6', padding: '0.5rem', borderRadius: '8px' }}>
+                <Activity size={18} color="#FFFFFF" />
+              </div>
+              <span style={{ fontSize: '1.375rem', fontWeight: '800', fontFamily: "'Space Grotesk', sans-serif" }}>ChronoGraph</span>
             </div>
-            <span style={{ fontSize: '0.75rem', color: '#34D399', fontWeight: '600' }}>Pytest Suite Passed</span>
+            <p style={{ fontSize: '0.875rem', color: '#94A3B8', maxWidth: '400px' }}>
+              The Temporal Memory & Epistemic Reasoning Engine for AI Agents built on HydraDB Cloud Substrate.
+            </p>
+            <div style={{ fontSize: '0.75rem', color: '#64748B', fontFamily: "'JetBrains Mono', monospace" }}>
+              © 2026 ChronoGraph Team • Hack Hydra Track 3 Release v1.3.0
+            </div>
           </div>
 
-        </div>
-
-        {/* HydraDB Substrate Comparison Matrix */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', width: '100%', maxWidth: '1100px', marginTop: '1.5rem', textAlign: 'left' }}>
-          
-          {/* Card 1: HydraDB Substrate */}
-          <div className="card" style={{ background: '#080A0F', border: '1px solid #1F2430' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-              <Database size={22} color="#3B82F6" />
-              <h3 style={{ fontSize: '1.125rem', fontWeight: '700', color: '#FFFFFF' }}>HydraDB Cloud Substrate</h3>
-            </div>
-            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.625rem', fontSize: '0.875rem', color: '#94A3B8' }}>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <CheckCircle2 size={16} color="#3B82F6" />
-                Raw memory chunk storage & vector embeddings
-              </li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <CheckCircle2 size={16} color="#3B82F6" />
-                OpenCypher entity-relation context graph retrieval
-              </li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <CheckCircle2 size={16} color="#3B82F6" />
-                Scalable collection partition indexing
-              </li>
-            </ul>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', textAlign: 'right', fontSize: '0.875rem' }}>
+            <a href="https://hydradb.com" target="_blank" rel="noopener noreferrer" style={{ color: '#3B82F6', textDecoration: 'none', fontWeight: '600' }}>
+              HydraDB Cloud Substrate →
+            </a>
+            <a href="https://github.com/23f3001874/chronograph" target="_blank" rel="noopener noreferrer" style={{ color: '#00F0FF', textDecoration: 'none', fontWeight: '600' }}>
+              GitHub Repository →
+            </a>
+            <a href="https://chronograph-seven.vercel.app" target="_blank" rel="noopener noreferrer" style={{ color: '#34D399', textDecoration: 'none', fontWeight: '600' }}>
+              Vercel Live Production URL →
+            </a>
           </div>
+        </footer>
 
-          {/* Card 2: ChronoGraph Engine */}
-          <div className="card" style={{ background: '#080A0F', border: '1px solid rgba(59, 130, 246, 0.35)', boxShadow: '0 0 25px rgba(59, 130, 246, 0.15)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-              <Cpu size={22} color="#00F0FF" />
-              <h3 style={{ fontSize: '1.125rem', fontWeight: '700', color: '#FFFFFF' }}>ChronoGraph Reasoning Layer</h3>
-            </div>
-            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.625rem', fontSize: '0.875rem', color: '#CBD5E1' }}>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <CheckCircle2 size={16} color="#00F0FF" />
-                Point-in-Time historical state resolution ($T$)
-              </li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <CheckCircle2 size={16} color="#00F0FF" />
-                Epistemic abstention (<code style={{ color: '#FBBF24', background: 'rgba(251, 191, 36, 0.15)', padding: '0.1rem 0.3rem', borderRadius: '4px' }}>UNKNOWN</code>) for absent facts
-              </li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <CheckCircle2 size={16} color="#00F0FF" />
-                Active conflict detection (<code style={{ color: '#F87171', background: 'rgba(248, 113, 113, 0.15)', padding: '0.1rem 0.3rem', borderRadius: '4px' }}>CONFLICTED</code>) without arbitrary winners
-              </li>
-            </ul>
-          </div>
-
-        </div>
-
-      </section>
-
-      {/* Main Interactive Workspaces */}
-      <main style={{ flex: 1 }}>
-        {activeTab === 'query' && (
-          <TemporalQueryView
-            subjectId={subjectId}
-            setSubjectId={setSubjectId}
-            predicate={predicate}
-            setPredicate={setPredicate}
-            onInspectEvidence={handleOpenEvidence}
-          />
-        )}
-
-        {activeTab === 'timeline' && (
-          <TimelineView
-            subjectId={subjectId}
-            predicate={predicate}
-            onSelectBelief={handleSelectBeliefForLineage}
-          />
-        )}
-
-        {activeTab === 'lineage' && (
-          <LineageGraphView
-            beliefId={selectedBeliefId}
-            onInspectEvidence={handleOpenEvidence}
-          />
-        )}
-
-        {activeTab === 'ingest' && (
-          <IngestionView
-            onIngestSuccess={() => setActiveTab('query')}
-          />
-        )}
-      </main>
-
-      {/* Grounded Evidence Modal */}
-      <EvidenceModal
-        isOpen={evidenceModalOpen}
-        onClose={() => setEvidenceModalOpen(false)}
-        evidenceList={evidenceModalData}
-      />
-
-      {/* Footer */}
-      <footer className="card" style={{ padding: '1.25rem 2rem', background: '#05060A', border: '1px solid #1F2430', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', marginTop: '2rem' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '0.8125rem', color: '#94A3B8' }}>
-          <Activity size={16} color="#3B82F6" />
-          <span>ChronoGraph v1.2.0 — Powered by <a href="https://hydradb.com" target="_blank" rel="noopener noreferrer" style={{ color: '#3B82F6', textDecoration: 'none', fontWeight: '600' }}>HydraDB Cloud</a></span>
-        </div>
-
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', fontSize: '0.8125rem', color: '#64748B' }}>
-          <span>Hack Hydra 2026 Track 3</span>
-          <span>•</span>
-          <a href="https://chronograph-seven.vercel.app" target="_blank" rel="noopener noreferrer" style={{ color: '#00F0FF', textDecoration: 'none', fontWeight: '600' }}>
-            Live Vercel Production
-          </a>
-        </div>
-      </footer>
-
+      </div>
     </div>
   );
 }
