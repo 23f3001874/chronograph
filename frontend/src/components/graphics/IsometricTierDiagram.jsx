@@ -21,10 +21,10 @@ export default function IsometricTierDiagram() {
 
         <line x1="140" y1="80" x2="170" y2="80" stroke="#3B82F6" strokeWidth="2" strokeDasharray="3 3" />
 
-        {/* Tier 2: Validity Interval [v_from, v_until) */}
+        {/* Tier 2: Validity Interval [valid_from, valid_until) */}
         <g transform="translate(170, 60)">
           <polygon points="40,0 80,20 40,40 0,20" fill="rgba(59, 130, 246, 0.25)" stroke="#00F0FF" strokeWidth="2" />
-          <text x="40" y="24" fill="#00F0FF" fontSize="10" fontFamily="monospace" textAnchor="middle" fontWeight="bold">[v_from, v_until)</text>
+          <text x="40" y="24" fill="#00F0FF" fontSize="10" fontFamily="monospace" textAnchor="middle" fontWeight="bold">[valid_from, valid_until)</text>
         </g>
 
         <line x1="250" y1="80" x2="280" y2="80" stroke="#00F0FF" strokeWidth="2" strokeDasharray="3 3" />

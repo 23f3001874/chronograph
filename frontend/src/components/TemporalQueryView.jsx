@@ -33,7 +33,7 @@ export default function TemporalQueryView({ subjectId, setSubjectId, predicate, 
       <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
         <h2 className="card-title">
           <Search size={20} color="#60A5FA" />
-          Point-in-Time Temporal Query ($T$)
+          Point-in-Time Temporal Query (T)
         </h2>
 
         <div className="input-group">
@@ -60,7 +60,7 @@ export default function TemporalQueryView({ subjectId, setSubjectId, predicate, 
         </div>
 
         <div className="input-group">
-          <label className="input-label">Evaluation Timestamp $T$ (ISO-8601)</label>
+          <label className="input-label">Evaluation Timestamp T (ISO-8601)</label>
           <div style={{ display: 'flex', gap: '0.5rem' }}>
             <input
               type="datetime-local"

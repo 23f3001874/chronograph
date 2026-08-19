@@ -111,7 +111,7 @@ export default function LineageGraphView({ beliefId, onInspectEvidence }) {
                 {idx < lineage.history.length - 1 && (
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.25rem' }}>
                     <span style={{ fontSize: '0.75rem', fontWeight: '700', color: '#60A5FA', background: 'rgba(59, 130, 246, 0.15)', padding: '0.25rem 0.75rem', borderRadius: '9999px', border: '1px solid rgba(59, 130, 246, 0.35)', letterSpacing: '0.05em' }}>
-                      {lineage.history[idx + 1].relationship}
+                      {item.relationship || 'SUPERSEDES'}
                     </span>
                     <ArrowDown size={22} color="#3B82F6" />
                   </div>

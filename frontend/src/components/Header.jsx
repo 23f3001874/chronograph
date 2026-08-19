@@ -58,7 +58,7 @@ export default function Header({ activeTab, setActiveTab, healthStatus, onLoadEd
             onClick={() => setActiveTab('query')}
           >
             <Search size={16} />
-            Temporal Query Playground ($T$)
+            Temporal Query Playground (T)
           </button>
           <button
             className={`btn ${activeTab === 'timeline' ? 'btn-primary' : 'btn-secondary'}`}

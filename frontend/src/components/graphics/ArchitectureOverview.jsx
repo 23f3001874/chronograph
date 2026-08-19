@@ -1,84 +1,76 @@
 import React from 'react';
-import { ArrowDown, Cpu, Database, ShieldCheck, Layers, GitBranch } from 'lucide-react';
+import { Database, Cpu, ShieldCheck } from 'lucide-react';
 
 export default function ArchitectureOverview() {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', width: '100%' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', width: '100%', maxWidth: '1100px', margin: '0 auto' }}>
       
-      {/* Box 1: HydraDB Substrate */}
-      <div style={{ border: '1px solid #1F2430', borderRadius: '12px', padding: '1.25rem', background: '#05070B', position: 'relative' }}>
-        <div style={{ fontSize: '0.75rem', fontFamily: 'monospace', color: '#94A3B8', fontWeight: '700', textTransform: 'uppercase', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+      {/* Tier 1: HydraDB Substrate */}
+      <div style={{ background: '#000000', border: '1px solid #2E2E2E', borderRadius: '10px', padding: '1.75rem' }}>
+        <div style={{ fontSize: '0.75rem', fontFamily: "'JetBrains Mono', monospace", color: '#94A3B8', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
           <Database size={16} color="#3B82F6" />
-          1. HYDRADB CLOUD SUBSTRATE (STORAGE & RETRIEVAL)
+          THE HYDRADB CLOUD SUBSTRATE (STORAGE & RETRIEVAL)
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
-          <div style={{ background: '#0B0F19', border: '1px solid #1F2430', padding: '0.875rem', borderRadius: '8px', fontSize: '0.8125rem', color: '#CBD5E1' }}>
-            <div style={{ color: '#FFFFFF', fontWeight: '700', marginBottom: '0.25rem' }}>Vector Store</div>
-            Semantic embeddings & similarity search
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.25rem' }}>
+          <div style={{ background: '#05070B', border: '1px solid #1A1D24', padding: '1rem', borderRadius: '8px' }}>
+            <div style={{ color: '#FFFFFF', fontWeight: '700', fontSize: '0.9375rem' }}>Vector Store</div>
+            <div style={{ color: '#64748B', fontSize: '0.8125rem', marginTop: '0.25rem' }}>Semantic embeddings & similarity search</div>
           </div>
-          <div style={{ background: '#0B0F19', border: '1px solid #1F2430', padding: '0.875rem', borderRadius: '8px', fontSize: '0.8125rem', color: '#CBD5E1' }}>
-            <div style={{ color: '#FFFFFF', fontWeight: '700', marginBottom: '0.25rem' }}>OpenCypher Graph</div>
-            Entity-relationship context graph
+          <div style={{ background: '#05070B', border: '1px solid #1A1D24', padding: '1rem', borderRadius: '8px' }}>
+            <div style={{ color: '#FFFFFF', fontWeight: '700', fontSize: '0.9375rem' }}>OpenCypher Graph</div>
+            <div style={{ color: '#64748B', fontSize: '0.8125rem', marginTop: '0.25rem' }}>Entity-relationship context graph</div>
           </div>
-          <div style={{ background: '#0B0F19', border: '1px solid #1F2430', padding: '0.875rem', borderRadius: '8px', fontSize: '0.8125rem', color: '#CBD5E1' }}>
-            <div style={{ color: '#FFFFFF', fontWeight: '700', marginBottom: '0.25rem' }}>Collection Partition</div>
-            Multitenant isolated document store
+          <div style={{ background: '#05070B', border: '1px solid #1A1D24', padding: '1rem', borderRadius: '8px' }}>
+            <div style={{ color: '#FFFFFF', fontWeight: '700', fontSize: '0.9375rem' }}>Collection Partition</div>
+            <div style={{ color: '#64748B', fontSize: '0.8125rem', marginTop: '0.25rem' }}>Multitenant document isolation</div>
           </div>
         </div>
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <ArrowDown size={24} color="#3B82F6" />
-      </div>
-
-      {/* Box 2: ChronoGraph Reasoning Core */}
-      <div style={{ border: '1px solid rgba(59, 130, 246, 0.4)', borderRadius: '12px', padding: '1.25rem', background: '#080C14', boxShadow: '0 0 25px rgba(59, 130, 246, 0.15)' }}>
-        <div style={{ fontSize: '0.75rem', fontFamily: 'monospace', color: '#00F0FF', fontWeight: '700', textTransform: 'uppercase', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+      {/* Tier 2: ChronoGraph Engine Core */}
+      <div style={{ background: '#000000', border: '1px solid #3B82F6', borderRadius: '10px', padding: '1.75rem', boxShadow: '0 0 30px rgba(59, 130, 246, 0.12)' }}>
+        <div style={{ fontSize: '0.75rem', fontFamily: "'JetBrains Mono', monospace", color: '#00F0FF', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
           <Cpu size={16} color="#00F0FF" />
-          2. CHRONOGRAPH TEMPORAL REASONING CORE
+          CHRONOGRAPH TEMPORAL REASONING CORE
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem' }}>
-          <div style={{ background: '#0D1322', border: '1px solid rgba(59, 130, 246, 0.3)', padding: '0.875rem', borderRadius: '8px', fontSize: '0.8125rem', color: '#F8FAFC' }}>
-            <div style={{ color: '#00F0FF', fontWeight: '700', marginBottom: '0.25rem' }}>Normalizer</div>
-            Extracts triplet $[S, P, O]$ & timestamp
+          <div style={{ background: '#050A14', border: '1px solid rgba(59, 130, 246, 0.3)', padding: '1rem', borderRadius: '8px' }}>
+            <div style={{ color: '#00F0FF', fontWeight: '700', fontSize: '0.875rem' }}>Normalizer</div>
+            <div style={{ color: '#94A3B8', fontSize: '0.78125rem', marginTop: '0.25rem' }}>Extracts triplet [S, P, O]</div>
           </div>
-          <div style={{ background: '#0D1322', border: '1px solid rgba(59, 130, 246, 0.3)', padding: '0.875rem', borderRadius: '8px', fontSize: '0.8125rem', color: '#F8FAFC' }}>
-            <div style={{ color: '#00F0FF', fontWeight: '700', marginBottom: '0.25rem' }}>State Machine</div>
-            Enforces $[v_{from}, v_{until})$ validity
+          <div style={{ background: '#050A14', border: '1px solid rgba(59, 130, 246, 0.3)', padding: '1rem', borderRadius: '8px' }}>
+            <div style={{ color: '#00F0FF', fontWeight: '700', fontSize: '0.875rem' }}>State Machine</div>
+            <div style={{ color: '#94A3B8', fontSize: '0.78125rem', marginTop: '0.25rem' }}>Enforces valid interval</div>
           </div>
-          <div style={{ background: '#0D1322', border: '1px solid rgba(59, 130, 246, 0.3)', padding: '0.875rem', borderRadius: '8px', fontSize: '0.8125rem', color: '#F8FAFC' }}>
-            <div style={{ color: '#00F0FF', fontWeight: '700', marginBottom: '0.25rem' }}>Contradiction</div>
-            Detects active overlapping conflicts
+          <div style={{ background: '#050A14', border: '1px solid rgba(59, 130, 246, 0.3)', padding: '1rem', borderRadius: '8px' }}>
+            <div style={{ color: '#00F0FF', fontWeight: '700', fontSize: '0.875rem' }}>Contradiction</div>
+            <div style={{ color: '#94A3B8', fontSize: '0.78125rem', marginTop: '0.25rem' }}>Flags active conflicts</div>
           </div>
-          <div style={{ background: '#0D1322', border: '1px solid rgba(59, 130, 246, 0.3)', padding: '0.875rem', borderRadius: '8px', fontSize: '0.8125rem', color: '#F8FAFC' }}>
-            <div style={{ color: '#00F0FF', fontWeight: '700', marginBottom: '0.25rem' }}>Abstention</div>
-            Returns UNKNOWN for absent facts
+          <div style={{ background: '#050A14', border: '1px solid rgba(59, 130, 246, 0.3)', padding: '1rem', borderRadius: '8px' }}>
+            <div style={{ color: '#00F0FF', fontWeight: '700', fontSize: '0.875rem' }}>Abstention</div>
+            <div style={{ color: '#94A3B8', fontSize: '0.78125rem', marginTop: '0.25rem' }}>Returns UNKNOWN</div>
           </div>
         </div>
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <ArrowDown size={24} color="#00F0FF" />
-      </div>
-
-      {/* Box 3: Epistemic State Resolution */}
-      <div style={{ border: '1px solid #1F2430', borderRadius: '12px', padding: '1.25rem', background: '#05070B' }}>
-        <div style={{ fontSize: '0.75rem', fontFamily: 'monospace', color: '#94A3B8', fontWeight: '700', textTransform: 'uppercase', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+      {/* Tier 3: Resolution States */}
+      <div style={{ background: '#000000', border: '1px solid #2E2E2E', borderRadius: '10px', padding: '1.75rem' }}>
+        <div style={{ fontSize: '0.75rem', fontFamily: "'JetBrains Mono', monospace", color: '#94A3B8', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
           <ShieldCheck size={16} color="#34D399" />
-          3. EPISTEMIC STATE RESOLUTION & GROUNDED LINEAGE
+          EPISTEMIC STATE RESOLUTION & LINEAGE STACK
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
-          <div style={{ background: 'rgba(52, 211, 153, 0.1)', border: '1px solid rgba(52, 211, 153, 0.3)', padding: '0.875rem', borderRadius: '8px', fontSize: '0.8125rem', color: '#34D399' }}>
-            <div style={{ fontWeight: '700', marginBottom: '0.25rem' }}>SUPPORTED</div>
-            Active truth at target timestamp $T$
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.25rem' }}>
+          <div style={{ background: 'rgba(52, 211, 153, 0.08)', border: '1px solid rgba(52, 211, 153, 0.25)', padding: '1rem', borderRadius: '8px' }}>
+            <div style={{ color: '#34D399', fontWeight: '700', fontSize: '0.875rem' }}>SUPPORTED</div>
+            <div style={{ color: '#94A3B8', fontSize: '0.78125rem', marginTop: '0.25rem' }}>Active historical truth</div>
           </div>
-          <div style={{ background: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.3)', padding: '0.875rem', borderRadius: '8px', fontSize: '0.8125rem', color: '#F59E0B' }}>
-            <div style={{ fontWeight: '700', marginBottom: '0.25rem' }}>UNKNOWN</div>
-            Epistemic abstention (0.0 confidence)
+          <div style={{ background: 'rgba(245, 158, 11, 0.08)', border: '1px solid rgba(245, 158, 11, 0.25)', padding: '1rem', borderRadius: '8px' }}>
+            <div style={{ color: '#F59E0B', fontWeight: '700', fontSize: '0.875rem' }}>UNKNOWN</div>
+            <div style={{ color: '#94A3B8', fontSize: '0.78125rem', marginTop: '0.25rem' }}>Epistemic abstention (0.0 conf)</div>
           </div>
-          <div style={{ background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.3)', padding: '0.875rem', borderRadius: '8px', fontSize: '0.8125rem', color: '#F87171' }}>
-            <div style={{ fontWeight: '700', marginBottom: '0.25rem' }}>CONFLICTED</div>
-            Simultaneous active disagreement
+          <div style={{ background: 'rgba(239, 68, 68, 0.08)', border: '1px solid rgba(239, 68, 68, 0.25)', padding: '1rem', borderRadius: '8px' }}>
+            <div style={{ color: '#F87171', fontWeight: '700', fontSize: '0.875rem' }}>CONFLICTED</div>
+            <div style={{ color: '#94A3B8', fontSize: '0.78125rem', marginTop: '0.25rem' }}>Active disagreement state</div>
           </div>
         </div>
       </div>

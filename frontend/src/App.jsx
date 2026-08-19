@@ -1,16 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import Header from './components/Header';
+import HeaderNav from './components/landing/HeaderNav';
+import HeroSection from './components/landing/HeroSection';
+import ProblemSection from './components/landing/ProblemSection';
+import CoreDifferenceSection from './components/landing/CoreDifferenceSection';
+import InteractiveBeliefEvolver from './components/landing/InteractiveBeliefEvolver';
+import EpistemicStatesSection from './components/landing/EpistemicStatesSection';
+import EvidenceLineageSection from './components/landing/EvidenceLineageSection';
+import ArchitectureSection from './components/landing/ArchitectureSection';
+import BenchmarkSection from './components/landing/BenchmarkSection';
+import HydraDBSection from './components/landing/HydraDBSection';
+import FooterSection from './components/landing/FooterSection';
+
 import TemporalQueryView from './components/TemporalQueryView';
 import TimelineView from './components/TimelineView';
 import LineageGraphView from './components/LineageGraphView';
 import IngestionView from './components/IngestionView';
 import EvidenceModal from './components/EvidenceModal';
-import HeroTemporalTree from './components/graphics/HeroTemporalTree';
-import BenchmarkChart from './components/graphics/BenchmarkChart';
-import ArchitectureOverview from './components/graphics/ArchitectureOverview';
-import IsometricTierDiagram from './components/graphics/IsometricTierDiagram';
+
 import { checkHealth, loadDemoScenario } from './api';
-import { ShieldCheck, Cpu, Database, Activity, GitBranch, ArrowUpRight, Zap, CheckCircle2, Lock, ExternalLink } from 'lucide-react';
+import { Search, Clock, GitBranch, PlusCircle, Zap } from 'lucide-react';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('query');
@@ -28,9 +36,15 @@ export default function App() {
     });
   }, []);
 
+  const scrollToStudio = () => {
+    const el = document.getElementById('interactive-studio');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+
   const handleSelectBeliefForLineage = (beliefId) => {
     setSelectedBeliefId(beliefId);
     setActiveTab('lineage');
+    scrollToStudio();
   };
 
   const handleOpenEvidence = (list) => {
@@ -45,6 +59,7 @@ export default function App() {
     try {
       await loadDemoScenario();
       setActiveTab('query');
+      scrollToStudio();
     } catch (err) {
       alert('Error loading editor scenario: ' + err.message);
     }
@@ -56,6 +71,7 @@ export default function App() {
     try {
       await loadDemoScenario();
       setActiveTab('query');
+      scrollToStudio();
     } catch (err) {
       alert('Error loading contradiction scenario: ' + err.message);
     }
@@ -67,6 +83,7 @@ export default function App() {
     try {
       await loadDemoScenario();
       setActiveTab('query');
+      scrollToStudio();
     } catch (err) {
       alert('Error loading absent scenario: ' + err.message);
     }
@@ -75,163 +92,107 @@ export default function App() {
   return (
     <div style={{ minHeight: '100vh', background: '#000000', color: '#FFFFFF', display: 'flex', flexDirection: 'column' }}>
       
-      {/* Top Announcement Bar (HydraDB Style) */}
-      <div style={{ background: '#080A0F', borderBottom: '1px solid #1F2430', padding: '0.5rem 1rem', textAlign: 'center', fontSize: '0.75rem', fontFamily: "'JetBrains Mono', monospace", display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.75rem' }}>
-        <span style={{ background: '#3B82F6', color: '#FFFFFF', padding: '0.1rem 0.5rem', borderRadius: '4px', fontWeight: '700', textTransform: 'uppercase' }}>
-          ANNOUNCEMENT
-        </span>
-        <span style={{ color: '#94A3B8' }}>
-          ChronoGraph v1.3.0 is live on Vercel & GitHub with 100% benchmark accuracy.
-        </span>
-        <a href="https://github.com/23f3001874/chronograph" target="_blank" rel="noopener noreferrer" style={{ color: '#00F0FF', textDecoration: 'none', fontWeight: '700', display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
-          View on GitHub <ArrowUpRight size={12} />
-        </a>
-      </div>
+      {/* STICKY MINIMAL NAVIGATION */}
+      <HeaderNav
+        healthStatus={healthStatus}
+        onLaunchDemo={scrollToStudio}
+      />
 
-      <div className="app-container">
-        
-        {/* Header */}
-        <Header
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-          healthStatus={healthStatus}
-          onLoadEditorScenario={handleLoadEditorScenario}
-          onLoadContradictionScenario={handleLoadContradictionScenario}
-          onLoadAbsentQuery={handleLoadAbsentQuery}
-        />
+      {/* 1. HERO SECTION */}
+      <HeroSection
+        onExploreGraph={scrollToStudio}
+      />
 
-        {/* HERO SECTION (Matching Screenshot 1) */}
-        <section style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2.5rem', alignItems: 'center', padding: '3rem 0 1rem 0' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', textAlign: 'left' }}>
-            <span style={{ color: '#94A3B8', fontFamily: "'JetBrains Mono', monospace", fontSize: '0.8125rem', letterSpacing: '0.05em' }}>
-              Substrate: HydraDB Cloud • Track 3 Memory
-            </span>
+      {/* 2. THE PROBLEM ("Memory isn't truth") */}
+      <ProblemSection />
 
-            <h1 style={{ fontSize: '3.75rem', fontWeight: '800', letterSpacing: '-0.04em', lineHeight: '1.05', fontFamily: "'Space Grotesk', sans-serif" }}>
-              The Temporal Memory AI Runs On.
-            </h1>
+      {/* 3. THE CORE DIFFERENCE (NAIVE VS CHRONOGRAPH MATRIX) */}
+      <CoreDifferenceSection />
 
-            <p style={{ fontSize: '1.125rem', color: '#94A3B8', lineHeight: '1.6', maxWidth: '540px' }}>
-              Temporal Belief & Epistemic Reasoning Engine built on HydraDB Cloud: <strong style={{ color: '#00F0FF' }}>100% temporal accuracy</strong>, zero future-knowledge leakage, and sub-millisecond point-in-time state resolution.
-            </p>
+      {/* 4. INTERACTIVE BELIEF EVOLVER ("Watch a belief evolve") */}
+      <InteractiveBeliefEvolver />
 
-            <div style={{ display: 'flex', gap: '1rem', marginTop: '0.5rem' }}>
-              <button className="btn btn-primary" style={{ padding: '0.875rem 1.75rem', fontSize: '1rem' }} onClick={() => setActiveTab('query')}>
-                Launch Interactive Playground
-              </button>
-              <a href="https://github.com/23f3001874/chronograph" target="_blank" rel="noopener noreferrer" className="btn btn-secondary" style={{ padding: '0.875rem 1.75rem', fontSize: '1rem', textDecoration: 'none' }}>
-                View GitHub Repo
-              </a>
-            </div>
-          </div>
+      {/* 5. EPISTEMIC STATES & INTERACTIVE UNKNOWN/CONFLICTED DEMOS */}
+      <EpistemicStatesSection />
 
-          {/* Hero Pixel Tree Graphic (Matching Screenshot 1) */}
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <HeroTemporalTree />
-          </div>
-        </section>
+      {/* 6. EVIDENCE & LINEAGE ("Every belief has a history") */}
+      <EvidenceLineageSection />
 
-        {/* BENTO GRID SECTION — "Everything You Need To Compound Intelligence" (Matching Screenshot 2) */}
-        <section style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginTop: '2rem' }}>
-          <h2 style={{ fontSize: '2.25rem', fontWeight: '700', textAlign: 'center', fontFamily: "'Space Grotesk', sans-serif", letterSpacing: '-0.03em' }}>
-            Everything You Need To Compound Temporal Intelligence
-          </h2>
+      {/* 7. ARCHITECTURE ("From memory to belief") */}
+      <ArchitectureSection />
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
-            
-            {/* Box 1: High Recall Accuracy (Matching Screenshot 2) */}
-            <div className="card" style={{ background: '#05070B', border: '1px solid #1F2430', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-              <div>
-                <h3 style={{ fontSize: '1.375rem', fontWeight: '700', color: '#FFFFFF' }}>High Temporal Accuracy</h3>
-                <p style={{ fontSize: '0.875rem', color: '#94A3B8', marginTop: '0.5rem' }}>
-                  Proven +70.0 percentage point advantage on sequential preference changes, overlapping location updates, and point-in-time point queries.
-                </p>
-              </div>
+      {/* 8. BENCHMARK PROOF ("Temporal reasoning changes the answer") */}
+      <BenchmarkSection />
 
-              {/* Big Electric Blue Stat Block */}
-              <div style={{ background: 'linear-gradient(135deg, #1D4ED8 0%, #2563EB 50%, #3B82F6 100%)', borderRadius: '12px', padding: '2.5rem 1.5rem', textAlign: 'center', marginTop: '1.5rem', boxShadow: '0 0 30px rgba(37, 99, 235, 0.4)' }}>
-                <div style={{ fontSize: '3.5rem', fontWeight: '800', fontFamily: "'Space Grotesk', sans-serif", color: '#FFFFFF' }}>
-                  100.0%
-                </div>
-                <div style={{ fontSize: '1.125rem', fontWeight: '700', color: '#00F0FF', textTransform: 'uppercase', letterSpacing: '0.05em', fontFamily: "'JetBrains Mono', monospace" }}>
-                  Benchmark Accuracy
-                </div>
-              </div>
-            </div>
+      {/* 9. BUILT ON HYDRADB SUBSTRATE */}
+      <HydraDBSection />
 
-            {/* Box 2: Scales With Systems (Matching Screenshot 2) */}
-            <div className="card" style={{ background: '#05070B', border: '1px solid #1F2430', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-              <div>
-                <h3 style={{ fontSize: '1.375rem', fontWeight: '700', color: '#FFFFFF' }}>Zero Future Leakage</h3>
-                <p style={{ fontSize: '0.875rem', color: '#94A3B8', marginTop: '0.5rem' }}>
-                  Prevents historical memory contamination by enforcing strict validity intervals <code style={{ color: '#00F0FF' }}>[valid_from, valid_until)</code> across memory tiers.
-                </p>
-              </div>
-
-              {/* Isometric Tier Diagram */}
-              <div style={{ marginTop: '1.5rem' }}>
-                <IsometricTierDiagram />
-              </div>
-            </div>
-
-            {/* Box 3: Epistemic Abstention */}
-            <div className="card" style={{ background: '#05070B', border: '1px solid #1F2430' }}>
-              <h3 style={{ fontSize: '1.375rem', fontWeight: '700', color: '#FFFFFF' }}>Deterministic Abstention</h3>
-              <p style={{ fontSize: '0.875rem', color: '#94A3B8', marginTop: '0.5rem' }}>
-                Returns explicit <code style={{ color: '#FBBF24' }}>UNKNOWN</code> (0.0 confidence) for absent facts instead of hallucinating fallbacks.
-              </p>
-            </div>
-
-            {/* Box 4: Sub-Millisecond Speed */}
-            <div className="card" style={{ background: '#05070B', border: '1px solid #1F2430' }}>
-              <h3 style={{ fontSize: '1.375rem', fontWeight: '700', color: '#FFFFFF' }}>Sub-Millisecond Engine</h3>
-              <p style={{ fontSize: '0.875rem', color: '#94A3B8', marginTop: '0.5rem' }}>
-                Built for high-throughput AI agent workloads with zero retrieval overhead.
-              </p>
-              <div style={{ fontSize: '2rem', fontWeight: '800', color: '#00F0FF', marginTop: '0.75rem', fontFamily: "'Space Grotesk', sans-serif" }}>
-                &lt; 0.1 ms Latency
-              </div>
-            </div>
-
-          </div>
-        </section>
-
-        {/* BENCHMARK CURVE CHART SECTION (Matching Screenshot 3) */}
-        <section style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginTop: '3rem' }}>
-          <div style={{ textAlign: 'left' }}>
-            <h2 style={{ fontSize: '2.25rem', fontWeight: '700', fontFamily: "'Space Grotesk', sans-serif", letterSpacing: '-0.03em' }}>
-              Recall & Future Leakage Bottleneck
-            </h2>
-            <p style={{ fontSize: '1rem', color: '#94A3B8', marginTop: '0.5rem' }}>
-              Naive vector databases suffer severe degradation as memory sequence length increases, leaking future facts into past queries.
-            </p>
-          </div>
-
-          <BenchmarkChart />
-        </section>
-
-        {/* ARCHITECTURE OVERVIEW SECTION (Matching Screenshot 4) */}
-        <section style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginTop: '3rem' }}>
-          <h2 style={{ fontSize: '2.25rem', fontWeight: '700', textAlign: 'center', fontFamily: "'Space Grotesk', sans-serif", letterSpacing: '-0.03em' }}>
-            Architecture Overview
-          </h2>
-
-          <ArchitectureOverview />
-        </section>
-
-        {/* MAIN INTERACTIVE PLAYGROUND STUDIO */}
-        <section style={{ marginTop: '4rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #1F2430', paddingBottom: '1rem' }}>
+      {/* 10. INTERACTIVE DEVELOPER STUDIO CONSOLE */}
+      <section id="interactive-studio" style={{ padding: '6rem 0 4rem 0', background: '#030509', borderTop: '1px solid #141822', scrollMarginTop: '4rem' }}>
+        <div className="section-container" style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+          
+          <div style={{ borderBottom: '1px solid #1F2430', paddingBottom: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '1.5rem' }}>
             <div>
-              <h2 style={{ fontSize: '2rem', fontWeight: '700', fontFamily: "'Space Grotesk', sans-serif" }}>
+              <span className="mono-tag" style={{ color: '#34D399' }}>DEVELOPER WORKSPACE</span>
+              <h2 style={{ fontSize: '2.5rem', fontWeight: '800', fontFamily: "'Space Grotesk', sans-serif", marginTop: '0.25rem' }}>
                 Interactive ChronoGraph Studio
               </h2>
-              <p style={{ fontSize: '0.875rem', color: '#94A3B8', marginTop: '0.25rem' }}>
-                Test point-in-time queries ($T$), inspect belief timelines, and verify transition graphs in real time.
+              <p style={{ fontSize: '0.9375rem', color: '#94A3B8', marginTop: '0.25rem' }}>
+                Execute point-in-time queries (T), inspect belief evolution timelines, traverse cycle-safe lineage graphs, and ingest memory statements.
               </p>
+            </div>
+
+            {/* Presets Bar */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+              <span style={{ fontSize: '0.75rem', color: '#64748B', fontFamily: "'JetBrains Mono', monospace", fontWeight: '700' }}>QUICK PRESETS:</span>
+              <button className="btn-infrastructure btn-infrastructure-secondary" style={{ padding: '0.4rem 0.75rem', fontSize: '0.75rem' }} onClick={handleLoadEditorScenario}>
+                <Zap size={13} color="#3B82F6" />
+                VS Code → Cursor
+              </button>
+              <button className="btn-infrastructure btn-infrastructure-secondary" style={{ padding: '0.4rem 0.75rem', fontSize: '0.75rem' }} onClick={handleLoadContradictionScenario}>
+                <Zap size={13} color="#F87171" />
+                CONFLICTED State
+              </button>
+              <button className="btn-infrastructure btn-infrastructure-secondary" style={{ padding: '0.4rem 0.75rem', fontSize: '0.75rem' }} onClick={handleLoadAbsentQuery}>
+                <Zap size={13} color="#FBBF24" />
+                UNKNOWN Fact
+              </button>
             </div>
           </div>
 
+          {/* Navigation Bar inside Studio */}
+          <nav style={{ display: 'flex', gap: '0.75rem' }}>
+            <button
+              className={`btn-infrastructure ${activeTab === 'query' ? 'btn-infrastructure-primary' : 'btn-infrastructure-secondary'}`}
+              onClick={() => setActiveTab('query')}
+            >
+              <Search size={16} />
+              Point-in-Time Query Playground (T)
+            </button>
+            <button
+              className={`btn-infrastructure ${activeTab === 'timeline' ? 'btn-infrastructure-primary' : 'btn-infrastructure-secondary'}`}
+              onClick={() => setActiveTab('timeline')}
+            >
+              <Clock size={16} />
+              Belief Evolution Timeline
+            </button>
+            <button
+              className={`btn-infrastructure ${activeTab === 'lineage' ? 'btn-infrastructure-primary' : 'btn-infrastructure-secondary'}`}
+              onClick={() => setActiveTab('lineage')}
+            >
+              <GitBranch size={16} />
+              Lineage Transition Graph
+            </button>
+            <button
+              className={`btn-infrastructure ${activeTab === 'ingest' ? 'btn-infrastructure-primary' : 'btn-infrastructure-secondary'}`}
+              onClick={() => setActiveTab('ingest')}
+            >
+              <PlusCircle size={16} />
+              Memory Ingestion Studio
+            </button>
+          </nav>
+
+          {/* Studio Tab Views */}
           {activeTab === 'query' && (
             <TemporalQueryView
               subjectId={subjectId}
@@ -262,46 +223,20 @@ export default function App() {
               onIngestSuccess={() => setActiveTab('query')}
             />
           )}
-        </section>
 
-        {/* Grounded Evidence Modal */}
-        <EvidenceModal
-          isOpen={evidenceModalOpen}
-          onClose={() => setEvidenceModalOpen(false)}
-          evidenceList={evidenceModalData}
-        />
+        </div>
+      </section>
 
-        {/* FOOTER SECTION (Matching Screenshot 5) */}
-        <footer style={{ borderTop: '1px solid #1F2430', padding: '3rem 0 1rem 0', marginTop: '4rem', display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '2rem' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', textAlign: 'left' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-              <div style={{ background: '#3B82F6', padding: '0.5rem', borderRadius: '8px' }}>
-                <Activity size={18} color="#FFFFFF" />
-              </div>
-              <span style={{ fontSize: '1.375rem', fontWeight: '800', fontFamily: "'Space Grotesk', sans-serif" }}>ChronoGraph</span>
-            </div>
-            <p style={{ fontSize: '0.875rem', color: '#94A3B8', maxWidth: '400px' }}>
-              The Temporal Memory & Epistemic Reasoning Engine for AI Agents built on HydraDB Cloud Substrate.
-            </p>
-            <div style={{ fontSize: '0.75rem', color: '#64748B', fontFamily: "'JetBrains Mono', monospace" }}>
-              © 2026 ChronoGraph Team • Hack Hydra Track 3 Release v1.3.0
-            </div>
-          </div>
+      {/* Grounded Evidence Modal */}
+      <EvidenceModal
+        isOpen={evidenceModalOpen}
+        onClose={() => setEvidenceModalOpen(false)}
+        evidenceList={evidenceModalData}
+      />
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', textAlign: 'right', fontSize: '0.875rem' }}>
-            <a href="https://hydradb.com" target="_blank" rel="noopener noreferrer" style={{ color: '#3B82F6', textDecoration: 'none', fontWeight: '600' }}>
-              HydraDB Cloud Substrate →
-            </a>
-            <a href="https://github.com/23f3001874/chronograph" target="_blank" rel="noopener noreferrer" style={{ color: '#00F0FF', textDecoration: 'none', fontWeight: '600' }}>
-              GitHub Repository →
-            </a>
-            <a href="https://chronograph-seven.vercel.app" target="_blank" rel="noopener noreferrer" style={{ color: '#34D399', textDecoration: 'none', fontWeight: '600' }}>
-              Vercel Live Production URL →
-            </a>
-          </div>
-        </footer>
+      {/* 11. FOOTER SECTION */}
+      <FooterSection />
 
-      </div>
     </div>
   );
 }

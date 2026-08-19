@@ -14,8 +14,8 @@
     "cancellation_accuracy": 100.0,
     "evidence_grounding_rate": 100.0,
     "lineage_integrity_rate": 100.0,
-    "total_latency_ms": 0.8788999984972179,
-    "avg_latency_ms": 0.08788999984972179,
+    "total_latency_ms": 0.892100002602092,
+    "avg_latency_ms": 0.0892100002602092,
     "scenario_evaluations": [
       {
         "scenario_id": "scenario_1_sequential_belief_change",
@@ -32,7 +32,7 @@
         "detected_abstention": false,
         "evidence_grounded": true,
         "lineage_depth": 3,
-        "execution_time_ms": 0.26249999973515514,
+        "execution_time_ms": 0.2600999996502651,
         "failure_reason": null
       },
       {
@@ -50,7 +50,7 @@
         "detected_abstention": false,
         "evidence_grounded": true,
         "lineage_depth": 0,
-        "execution_time_ms": 0.07809999988239724,
+        "execution_time_ms": 0.08040000102482736,
         "failure_reason": null
       },
       {
@@ -68,7 +68,7 @@
         "detected_abstention": false,
         "evidence_grounded": true,
         "lineage_depth": 2,
-        "execution_time_ms": 0.07200000072771218,
+        "execution_time_ms": 0.07229999937408138,
         "failure_reason": null
       },
       {
@@ -86,7 +86,7 @@
         "detected_abstention": true,
         "evidence_grounded": true,
         "lineage_depth": 0,
-        "execution_time_ms": 0.029699998776777647,
+        "execution_time_ms": 0.030299999707494862,
         "failure_reason": null
       },
       {
@@ -104,7 +104,7 @@
         "detected_abstention": false,
         "evidence_grounded": true,
         "lineage_depth": 0,
-        "execution_time_ms": 0.056599999879836105,
+        "execution_time_ms": 0.05680000140273478,
         "failure_reason": null
       },
       {
@@ -122,7 +122,7 @@
         "detected_abstention": false,
         "evidence_grounded": true,
         "lineage_depth": 1,
-        "execution_time_ms": 0.05340000097930897,
+        "execution_time_ms": 0.0669999990350334,
         "failure_reason": null
       },
       {
@@ -140,7 +140,7 @@
         "detected_abstention": false,
         "evidence_grounded": true,
         "lineage_depth": 2,
-        "execution_time_ms": 0.0638999990769662,
+        "execution_time_ms": 0.06170000051497482,
         "failure_reason": null
       },
       {
@@ -158,7 +158,7 @@
         "detected_abstention": false,
         "evidence_grounded": true,
         "lineage_depth": 2,
-        "execution_time_ms": 0.06269999903452117,
+        "execution_time_ms": 0.06329999996523838,
         "failure_reason": null
       },
       {
@@ -176,7 +176,7 @@
         "detected_abstention": false,
         "evidence_grounded": true,
         "lineage_depth": 0,
-        "execution_time_ms": 0.054600001021754,
+        "execution_time_ms": 0.054900001487112604,
         "failure_reason": null
       },
       {
@@ -194,7 +194,7 @@
         "detected_abstention": false,
         "evidence_grounded": true,
         "lineage_depth": 6,
-        "execution_time_ms": 0.14539999938278925,
+        "execution_time_ms": 0.1453000004403293,
         "failure_reason": null
       }
     ]
@@ -212,8 +212,8 @@
     "cancellation_accuracy": 0.0,
     "evidence_grounding_rate": 90.0,
     "lineage_integrity_rate": 0.0,
-    "total_latency_ms": 0.01630000042496249,
-    "avg_latency_ms": 0.001630000042496249,
+    "total_latency_ms": 0.01669999983278103,
+    "avg_latency_ms": 0.0016699999832781032,
     "scenario_evaluations": [
       {
         "scenario_id": "scenario_1_sequential_belief_change",
@@ -230,7 +230,7 @@
         "detected_abstention": false,
         "evidence_grounded": true,
         "lineage_depth": 1,
-        "execution_time_ms": 0.003099999958067201,
+        "execution_time_ms": 0.002999999196617864,
         "failure_reason": "Value mismatch (expected 'Cursor', got 'VS Code'); Future knowledge leakage detected"
       },
       {
@@ -266,7 +266,7 @@
         "detected_abstention": false,
         "evidence_grounded": true,
         "lineage_depth": 1,
-        "execution_time_ms": 0.0013999997463542968,
+        "execution_time_ms": 0.0015999994502635673,
         "failure_reason": "Value mismatch (expected 'VS Code', got 'Cursor'); Future knowledge leakage detected"
       },
       {
@@ -284,7 +284,7 @@
         "detected_abstention": false,
         "evidence_grounded": false,
         "lineage_depth": 1,
-        "execution_time_ms": 0.0005999991117278114,
+        "execution_time_ms": 0.0006000009307172149,
         "failure_reason": "Status mismatch (expected 'UNKNOWN', got 'SUPPORTED'); Value mismatch (expected 'None', got 'DefaultFallback')"
       },
       {
@@ -302,7 +302,7 @@
         "detected_abstention": false,
         "evidence_grounded": true,
         "lineage_depth": 1,
-        "execution_time_ms": 0.0014999986888142303,
+        "execution_time_ms": 0.0015999994502635673,
         "failure_reason": "Status mismatch (expected 'CANCELLED', got 'SUPPORTED'); Value mismatch (expected 'None', got 'Cancelled')"
       },
       {
@@ -338,7 +338,7 @@
         "detected_abstention": false,
         "evidence_grounded": true,
         "lineage_depth": 1,
-        "execution_time_ms": 0.0013000008038943633,
+        "execution_time_ms": 0.0013999997463542968,
         "failure_reason": null
       },
       {
@@ -356,7 +356,7 @@
         "detected_abstention": false,
         "evidence_grounded": true,
         "lineage_depth": 1,
-        "execution_time_ms": 0.0013000008038943633,
+        "execution_time_ms": 0.0013999997463542968,
         "failure_reason": null
       },
       {
