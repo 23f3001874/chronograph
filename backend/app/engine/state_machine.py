@@ -115,8 +115,9 @@ class BeliefStateMachine:
             )
 
         planned_belief.lifecycle_status = LifecycleStatus.CANCELLED
-        if planned_belief.valid_until is None or planned_belief.valid_until > cancellation_belief.valid_from:
-            planned_belief.valid_until = cancellation_belief.valid_from
+        new_until = max(planned_belief.valid_from, cancellation_belief.valid_from)
+        if planned_belief.valid_until is None or planned_belief.valid_until > new_until:
+            planned_belief.valid_until = new_until
 
         # Persist cancellation assertion and updated planned state
         self.store.add_belief(cancellation_belief)

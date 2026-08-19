@@ -197,25 +197,23 @@ def query_structured_answer(
     query_time: datetime,
 ) -> dict[str, Any]:
     """Queries ChronoGraph for (subject_id, predicate) at query_time and returns a structured response object."""
-    valid_beliefs = resolve_at_time(store, subject_id, predicate, query_time)
+    res = resolve_current(store, subject_id, predicate, query_time)
 
-    if not valid_beliefs:
-        # Check current resolution status for abstention or cancellation
-        res = resolve_current(store, subject_id, predicate, query_time)
+    if res.status != ResolutionStatus.SUPPORTED or not res.beliefs:
         return {
             "status": res.status.value,
             "attribute": predicate,
             "value": None,
-            "confidence": 0.0,
+            "confidence": res.confidence,
             "belief_id": None,
             "valid_from": None,
             "valid_until": None,
-            "evidence": [],
+            "evidence": res.evidence_ids,
             "lineage": [],
             "reason": res.reason,
         }
 
-    b = valid_beliefs[0]
+    b = res.beliefs[0]
     evidence_obs = get_evidence_for_belief(store, b.id)
     lineage_data = get_lineage(store, b.id)
 
