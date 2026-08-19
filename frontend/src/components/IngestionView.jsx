@@ -35,7 +35,7 @@ export default function IngestionView({ onIngestSuccess }) {
   return (
     <div className="card" style={{ maxWidth: '680px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
       <h2 className="card-title">
-        <PlusCircle size={20} color="#10B981" />
+        <PlusCircle size={20} color="#60A5FA" />
         Ingest Memory Statement into HydraDB & ChronoGraph
       </h2>
 
@@ -94,19 +94,19 @@ export default function IngestionView({ onIngestSuccess }) {
       </form>
 
       {error && (
-        <div style={{ padding: '0.75rem', background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.3)', borderRadius: '8px', color: '#EF4444', fontSize: '0.875rem' }}>
+        <div style={{ padding: '0.875rem', background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.3)', borderRadius: '10px', color: '#F87171', fontSize: '0.875rem' }}>
           {error}
         </div>
       )}
 
       {result && (
-        <div style={{ padding: '1rem', background: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.3)', borderRadius: '10px', color: '#F3F4F6', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#10B981', fontWeight: '600' }}>
+        <div style={{ padding: '1.125rem', background: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.35)', borderRadius: '12px', color: '#F8FAFC', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#34D399', fontWeight: '700' }}>
             <CheckCircle2 size={18} />
             Memory Statement Ingested Successfully!
           </div>
-          <p style={{ fontSize: '0.8125rem', color: '#D1D5DB' }}>{result.message}</p>
-          <div style={{ fontSize: '0.75rem', color: '#9CA3AF', fontFamily: 'monospace', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+          <p style={{ fontSize: '0.8125rem', color: '#CBD5E1' }}>{result.message}</p>
+          <div style={{ fontSize: '0.75rem', color: '#94A3B8', fontFamily: 'monospace', display: 'flex', flexDirection: 'column', gap: '0.25rem', marginTop: '0.25rem' }}>
             <div>Observation ID: {result.observation_ids?.join(', ')}</div>
             <div>Belief States Created: {result.belief_ids?.join(', ') || 'None'}</div>
           </div>
