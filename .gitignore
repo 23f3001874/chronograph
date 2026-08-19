@@ -63,3 +63,5 @@ Thumbs.db
 
 # Local storage & snapshots
 data/
+
+.vercel

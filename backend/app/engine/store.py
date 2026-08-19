@@ -27,6 +27,15 @@ class ChronoGraphStore:
         # Index: (subject_id, predicate) -> list of belief IDs
         self.subject_predicate_index: dict[tuple[str, str], list[str]] = {}
 
+    def clear(self) -> None:
+        """Clears all entities, beliefs, observations, edges, and indexes thread-safely."""
+        with self._lock:
+            self.entities.clear()
+            self.beliefs.clear()
+            self.observations.clear()
+            self.edges.clear()
+            self.subject_predicate_index.clear()
+
     def add_entity(self, entity: Entity) -> Entity:
         """Stores an Entity thread-safely and returns it."""
         with self._lock:

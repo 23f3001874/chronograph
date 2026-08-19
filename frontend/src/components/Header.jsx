@@ -43,7 +43,7 @@ export default function Header({ activeTab, setActiveTab, healthStatus, onLoadEd
           <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: healthStatus === 'ok' ? '#10B981' : '#EF4444' }}></span>
           <span style={{ color: '#9CA3AF' }}>Backend:</span>
           <span style={{ fontWeight: '600', color: healthStatus === 'ok' ? '#10B981' : '#EF4444' }}>
-            {healthStatus === 'ok' ? '127.0.0.1:8000 (Connected)' : 'Disconnected'}
+            {healthStatus === 'ok' ? 'Connected (HydraDB Ready)' : 'Disconnected'}
           </span>
         </div>
       </div>

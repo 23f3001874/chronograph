@@ -23,7 +23,11 @@ from app.models.domain import (
 
 logger = logging.getLogger("chronograph.persistence")
 
-DEFAULT_DATA_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "data")
+if os.environ.get("VERCEL"):
+    DEFAULT_DATA_DIR = os.path.join(tempfile.gettempdir(), "chronograph_data")
+else:
+    DEFAULT_DATA_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "data")
+
 DEFAULT_SNAPSHOT_PATH = os.path.join(DEFAULT_DATA_DIR, "chronograph_snapshot.json")
 
 
@@ -51,7 +55,11 @@ class SnapshotManager:
 
     def __init__(self, snapshot_path: str | None = None) -> None:
         self.snapshot_path = snapshot_path or DEFAULT_SNAPSHOT_PATH
-        os.makedirs(os.path.dirname(self.snapshot_path), exist_ok=True)
+        try:
+            os.makedirs(os.path.dirname(self.snapshot_path), exist_ok=True)
+        except Exception:
+            self.snapshot_path = os.path.join(tempfile.gettempdir(), "chronograph_snapshot.json")
+            os.makedirs(os.path.dirname(self.snapshot_path), exist_ok=True)
 
     def serialize_store(self, store: ChronoGraphStore) -> dict[str, Any]:
         """Serializes ChronoGraphStore objects into a JSON-compatible dictionary."""
