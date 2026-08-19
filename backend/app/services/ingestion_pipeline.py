@@ -51,6 +51,9 @@ class ChronoGraphIngestionPipeline:
         query_hint: str = "editor preference software favorite",
     ) -> tuple[ChronoGraphStore, list[Observation], list[BeliefState]]:
         """Ingests memories, queries context, normalizes observations, and builds state-machine transitions in ChronoGraphStore."""
+        if not collection or not collection.strip():
+            raise ValueError("Collection partition name cannot be empty or whitespace.")
+
         # 1. Ingest into HydraDB Cloud
         self.service.ingest_memory(collection=collection, memories=memories, infer=True)
 

@@ -38,7 +38,7 @@ def resolve_at_time(
     
     valid_beliefs: list[BeliefState] = []
     for b in all_beliefs:
-        if b.lifecycle_status == LifecycleStatus.CANCELLED:
+        if b.lifecycle_status in {LifecycleStatus.CANCELLED, LifecycleStatus.OBSERVED}:
             continue
 
         is_started = b.valid_from <= timestamp
@@ -104,7 +104,7 @@ def resolve_current(
     if not valid_beliefs:
         # Check if stored beliefs were cancelled or superseded
         all_beliefs = store.get_beliefs(subject_id, predicate)
-        if all_beliefs and all(b.lifecycle_status == LifecycleStatus.CANCELLED for b in all_beliefs):
+        if all_beliefs and any(b.lifecycle_status == LifecycleStatus.CANCELLED for b in all_beliefs):
             ev_ids: list[str] = []
             for b in all_beliefs:
                 ev_ids.extend(b.observation_ids)

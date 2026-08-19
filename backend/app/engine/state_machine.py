@@ -51,6 +51,16 @@ class BeliefStateMachine:
         if not old_belief:
             raise KeyError(f"Target belief for supersession not found: {old_belief_id}")
 
+        if old_belief.subject_id != new_belief.subject_id or old_belief.predicate != new_belief.predicate:
+            raise ValueError(
+                f"Subject or Predicate mismatch in supersession: new ({new_belief.subject_id}, {new_belief.predicate}) vs old ({old_belief.subject_id}, {old_belief.predicate})."
+            )
+
+        if new_belief.valid_from < old_belief.valid_from:
+            raise ValueError(
+                f"Superseding belief valid_from ({new_belief.valid_from.isoformat()}) cannot precede old belief valid_from ({old_belief.valid_from.isoformat()})."
+            )
+
         if old_belief.lifecycle_status in {LifecycleStatus.SUPERSEDED, LifecycleStatus.CANCELLED}:
             raise ValueError(
                 f"Cannot supersede belief {old_belief_id} which is already '{old_belief.lifecycle_status}'."
