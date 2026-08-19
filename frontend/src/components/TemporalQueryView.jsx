@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Calendar, Search, FileText, GitCommit, HelpCircle, ShieldCheck, AlertTriangle } from 'lucide-react';
+import { Calendar, Search, FileText, GitCommit, HelpCircle, ShieldCheck, AlertTriangle, AlertCircle } from 'lucide-react';
 import EpistemicBadge from './EpistemicBadge';
 import { queryTemporalState } from '../api';
 
 export default function TemporalQueryView({ subjectId, setSubjectId, predicate, setPredicate, onInspectEvidence }) {
-  const [selectedDate, setSelectedDate] = useState('2025-03-20T00:00:00Z');
+  const [selectedDate, setSelectedDate] = useState('2025-01-20T00:00:00Z');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
@@ -53,9 +53,8 @@ export default function TemporalQueryView({ subjectId, setSubjectId, predicate, 
             value={predicate}
             onChange={(e) => setPredicate(e.target.value)}
           >
-            <option value="favorite_editor">favorite_editor</option>
-            <option value="lives_in">lives_in</option>
-            <option value="location">location</option>
+            <option value="favorite_editor">favorite_editor (VS Code → Cursor → VS Code)</option>
+            <option value="location">location (Delhi vs Bangalore Contradiction)</option>
             <option value="favorite_language">favorite_language (Absent / UNKNOWN)</option>
           </select>
         </div>
@@ -75,19 +74,22 @@ export default function TemporalQueryView({ subjectId, setSubjectId, predicate, 
 
         {/* Quick Date Presets */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-          <span style={{ fontSize: '0.75rem', color: '#9CA3AF' }}>Scrub Temporal Timeline:</span>
+          <span style={{ fontSize: '0.75rem', color: '#9CA3AF', fontWeight: '600' }}>Demo Quick Presets:</span>
           <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-            <button className="btn btn-secondary" style={{ padding: '0.25rem 0.5rem', fontSize: '0.75rem' }} onClick={() => handlePresetDate('2025-01-20T00:00:00Z')}>
-              Jan 20, 2025
+            <button className="btn btn-secondary" style={{ padding: '0.25rem 0.5rem', fontSize: '0.75rem' }} onClick={() => { setPredicate('favorite_editor'); handlePresetDate('2025-01-20T00:00:00Z'); }}>
+              Jan 20 (VS Code)
             </button>
-            <button className="btn btn-secondary" style={{ padding: '0.25rem 0.5rem', fontSize: '0.75rem' }} onClick={() => handlePresetDate('2025-02-20T00:00:00Z')}>
-              Feb 20, 2025
+            <button className="btn btn-secondary" style={{ padding: '0.25rem 0.5rem', fontSize: '0.75rem' }} onClick={() => { setPredicate('favorite_editor'); handlePresetDate('2025-02-20T00:00:00Z'); }}>
+              Feb 20 (Cursor)
             </button>
-            <button className="btn btn-secondary" style={{ padding: '0.25rem 0.5rem', fontSize: '0.75rem' }} onClick={() => handlePresetDate('2025-03-20T00:00:00Z')}>
-              Mar 20, 2025
+            <button className="btn btn-secondary" style={{ padding: '0.25rem 0.5rem', fontSize: '0.75rem' }} onClick={() => { setPredicate('favorite_editor'); handlePresetDate('2025-03-20T00:00:00Z'); }}>
+              Mar 20 (VS Code)
             </button>
-            <button className="btn btn-secondary" style={{ padding: '0.25rem 0.5rem', fontSize: '0.75rem' }} onClick={() => handlePresetDate('2025-04-20T00:00:00Z')}>
-              Apr 20, 2025
+            <button className="btn btn-secondary" style={{ padding: '0.25rem 0.5rem', fontSize: '0.75rem', borderColor: '#F59E0B', color: '#F59E0B' }} onClick={() => { setPredicate('favorite_language'); handlePresetDate('2025-01-15T00:00:00Z'); }}>
+              UNKNOWN Fact
+            </button>
+            <button className="btn btn-secondary" style={{ padding: '0.25rem 0.5rem', fontSize: '0.75rem', borderColor: '#EF4444', color: '#EF4444' }} onClick={() => { setPredicate('location'); handlePresetDate('2025-02-15T00:00:00Z'); }}>
+              CONFLICTED State
             </button>
           </div>
         </div>
@@ -124,23 +126,48 @@ export default function TemporalQueryView({ subjectId, setSubjectId, predicate, 
                 <span style={{ fontSize: '0.75rem', color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                   Resolved Value (as of {new Date(result.as_of).toLocaleDateString()})
                 </span>
-                <div style={{ fontSize: '1.5rem', fontWeight: '700', color: result.value ? '#F3F4F6' : '#9CA3AF', marginTop: '0.25rem' }}>
-                  {result.value !== null ? result.value : 'None (No Assertion Holds)'}
+                <div style={{ fontSize: '1.5rem', fontWeight: '700', color: result.status === 'SUPPORTED' ? '#F3F4F6' : (result.status === 'CONFLICTED' ? '#EF4444' : '#F59E0B'), marginTop: '0.25rem' }}>
+                  {result.status === 'SUPPORTED' ? result.value : (result.status === 'CONFLICTED' ? 'Conflicted (Active Disagreement)' : 'Unknown (Absent Fact)')}
                 </div>
               </div>
               <EpistemicBadge status={result.status} />
             </div>
 
+            {/* Status Explanatory Box for UNKNOWN or CONFLICTED */}
+            {result.status === 'UNKNOWN' && (
+              <div style={{ padding: '0.875rem', background: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.3)', borderRadius: '8px', display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
+                <AlertCircle size={20} color="#F59E0B" style={{ marginTop: '2px', flexShrink: 0 }} />
+                <div>
+                  <h4 style={{ fontSize: '0.875rem', fontWeight: '600', color: '#F59E0B' }}>EPISTEMIC ABSTENTION</h4>
+                  <p style={{ fontSize: '0.8125rem', color: '#D1D5DB', marginTop: '0.25rem' }}>
+                    No recorded evidence exists for predicate <strong>'{result.predicate}'</strong>. ChronoGraph refrains from hallucinating or guessing a fallback value.
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {result.status === 'CONFLICTED' && (
+              <div style={{ padding: '0.875rem', background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.3)', borderRadius: '8px', display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
+                <AlertTriangle size={20} color="#EF4444" style={{ marginTop: '2px', flexShrink: 0 }} />
+                <div>
+                  <h4 style={{ fontSize: '0.875rem', fontWeight: '600', color: '#EF4444' }}>SIMULTANEOUS ACTIVE CONFLICT</h4>
+                  <p style={{ fontSize: '0.8125rem', color: '#D1D5DB', marginTop: '0.25rem' }}>
+                    Multiple active disagreeing assertions exist simultaneously for <strong>'{result.predicate}'</strong> without supersession. ChronoGraph flags a conflict rather than picking an arbitrary winner.
+                  </p>
+                </div>
+              </div>
+            )}
+
             {/* Confidence & Reasoning */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '1rem' }}>
               <div style={{ background: '#0D1017', border: '1px solid #232A3D', borderRadius: '8px', padding: '0.875rem' }}>
                 <span style={{ fontSize: '0.75rem', color: '#9CA3AF' }}>Confidence Score</span>
-                <div style={{ fontSize: '1.25rem', fontWeight: '600', color: '#3B82F6', marginTop: '0.25rem' }}>
+                <div style={{ fontSize: '1.25rem', fontWeight: '600', color: result.confidence > 0.8 ? '#10B981' : (result.confidence > 0.0 ? '#F59E0B' : '#9CA3AF'), marginTop: '0.25rem' }}>
                   {(result.confidence * 100).toFixed(0)}%
                 </div>
               </div>
               <div style={{ background: '#0D1017', border: '1px solid #232A3D', borderRadius: '8px', padding: '0.875rem' }}>
-                <span style={{ fontSize: '0.75rem', color: '#9CA3AF' }}>Epistemic Reason</span>
+                <span style={{ fontSize: '0.75rem', color: '#9CA3AF' }}>Epistemic Explanation</span>
                 <p style={{ fontSize: '0.8125rem', color: '#D1D5DB', marginTop: '0.25rem', lineHeight: '1.4' }}>
                   {result.reason}
                 </p>

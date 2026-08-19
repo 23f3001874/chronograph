@@ -5,7 +5,7 @@ import TimelineView from './components/TimelineView';
 import LineageGraphView from './components/LineageGraphView';
 import IngestionView from './components/IngestionView';
 import EvidenceModal from './components/EvidenceModal';
-import { checkHealth, ingestMemory, queryTemporalState } from './api';
+import { checkHealth, loadDemoScenario } from './api';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('query');
@@ -38,9 +38,7 @@ export default function App() {
     setSubjectId('user');
     setPredicate('favorite_editor');
     try {
-      await ingestMemory('chronograph_demo', 's1', 'I use VS Code as my favorite editor.', '2025-01-10T00:00:00Z');
-      await ingestMemory('chronograph_demo', 's2', 'I switched to Cursor and now prefer Cursor over VS Code.', '2025-02-10T00:00:00Z');
-      await ingestMemory('chronograph_demo', 's3', 'I switched back to VS Code. It is my favorite editor again.', '2025-03-10T00:00:00Z');
+      await loadDemoScenario();
       setActiveTab('query');
     } catch (err) {
       alert('Error loading editor scenario: ' + err.message);
@@ -52,19 +50,23 @@ export default function App() {
     setSubjectId('user');
     setPredicate('location');
     try {
-      await ingestMemory('chronograph_demo', 's1_loc', 'I live in Delhi.', '2025-01-01T00:00:00Z');
-      await ingestMemory('chronograph_demo', 's2_loc', 'I live in Bangalore.', '2025-02-01T00:00:00Z');
+      await loadDemoScenario();
       setActiveTab('query');
     } catch (err) {
       alert('Error loading contradiction scenario: ' + err.message);
     }
   };
 
-  // Load Preset 3: Absent Query
-  const handleLoadAbsentQuery = () => {
+  // Load Preset 3: Absent Query (UNKNOWN)
+  const handleLoadAbsentQuery = async () => {
     setSubjectId('user');
     setPredicate('favorite_language');
-    setActiveTab('query');
+    try {
+      await loadDemoScenario();
+      setActiveTab('query');
+    } catch (err) {
+      alert('Error loading absent scenario: ' + err.message);
+    }
   };
 
   return (

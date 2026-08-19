@@ -1,0 +1,66 @@
+{
+  "scenario_name": "Hack Hydra Killer Temporal Scenario",
+  "subject_id": "user",
+  "entities": [
+    {
+      "id": "user",
+      "name": "Alex",
+      "entity_type": "PERSON"
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs_jan_vscode",
+      "source_text": "I use VS Code as my favorite editor.",
+      "session_id": "session_jan",
+      "observed_at": "2025-01-01T00:00:00Z",
+      "valid_from": "2025-01-01T00:00:00Z",
+      "valid_until": "2025-02-01T00:00:00Z",
+      "predicate": "favorite_editor",
+      "object_value": "VS Code"
+    },
+    {
+      "id": "obs_feb_cursor",
+      "source_text": "I switched to Cursor. Cursor is now my favorite editor.",
+      "session_id": "session_feb",
+      "observed_at": "2025-02-01T00:00:00Z",
+      "valid_from": "2025-02-01T00:00:00Z",
+      "valid_until": "2025-03-01T00:00:00Z",
+      "predicate": "favorite_editor",
+      "object_value": "Cursor",
+      "is_supersession": true,
+      "supersedes_id": "bel_obs_jan_vscode"
+    },
+    {
+      "id": "obs_mar_vscode",
+      "source_text": "I switched back to VS Code. It is my favorite editor again.",
+      "session_id": "session_mar",
+      "observed_at": "2025-03-01T00:00:00Z",
+      "valid_from": "2025-03-01T00:00:00Z",
+      "predicate": "favorite_editor",
+      "object_value": "VS Code",
+      "is_supersession": true,
+      "supersedes_id": "bel_obs_feb_cursor"
+    },
+    {
+      "id": "obs_delhi",
+      "source_text": "I live in Delhi.",
+      "session_id": "session_loc_1",
+      "observed_at": "2025-01-10T00:00:00Z",
+      "valid_from": "2025-01-01T00:00:00Z",
+      "valid_until": "2025-03-01T00:00:00Z",
+      "predicate": "location",
+      "object_value": "Delhi"
+    },
+    {
+      "id": "obs_bangalore",
+      "source_text": "I live in Bangalore.",
+      "session_id": "session_loc_2",
+      "observed_at": "2025-02-10T00:00:00Z",
+      "valid_from": "2025-02-01T00:00:00Z",
+      "valid_until": "2025-04-01T00:00:00Z",
+      "predicate": "location",
+      "object_value": "Bangalore"
+    }
+  ]
+}

@@ -90,3 +90,17 @@ export async function ingestMemory(collection, sessionId, text, timestamp = null
 
   return await res.json();
 }
+
+export async function loadDemoScenario() {
+  const res = await fetch(`${API_BASE_URL}/api/v1/demo/load`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.detail || 'Demo load failed');
+  }
+
+  return await res.json();
+}

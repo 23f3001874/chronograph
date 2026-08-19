@@ -95,3 +95,12 @@ class IngestResponse(BaseModel):
     observation_ids: list[str] = Field(default_factory=list, description="IDs of created observations")
     belief_ids: list[str] = Field(default_factory=list, description="IDs of created belief states")
     message: str = Field(..., description="Human readable summary message")
+
+
+class DemoLoadResponse(BaseModel):
+    """Response schema for loading demo scenario."""
+
+    success: bool = Field(..., description="Whether demo scenario was loaded")
+    message: str = Field(..., description="Summary message")
+    observations_loaded: int = Field(..., description="Count of observations loaded")
+    beliefs_loaded: int = Field(..., description="Count of belief states populated")
