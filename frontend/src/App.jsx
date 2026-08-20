@@ -7,8 +7,10 @@ import InteractiveBeliefEvolver from './components/landing/InteractiveBeliefEvol
 import EpistemicStatesSection from './components/landing/EpistemicStatesSection';
 import EvidenceLineageSection from './components/landing/EvidenceLineageSection';
 import ArchitectureSection from './components/landing/ArchitectureSection';
+import BeliefReplaySection from './components/landing/BeliefReplaySection';
 import BenchmarkSection from './components/landing/BenchmarkSection';
 import HydraDBSection from './components/landing/HydraDBSection';
+import ClosingSection from './components/landing/ClosingSection';
 import FooterSection from './components/landing/FooterSection';
 
 import TemporalQueryView from './components/TemporalQueryView';
@@ -90,7 +92,7 @@ export default function App() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: '#000000', color: '#FFFFFF', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ minHeight: '100vh', background: '#040508', color: '#FFFFFF', display: 'flex', flexDirection: 'column' }}>
       
       {/* STICKY MINIMAL NAVIGATION */}
       <HeaderNav
@@ -98,36 +100,39 @@ export default function App() {
         onLaunchDemo={scrollToStudio}
       />
 
-      {/* 1. HERO SECTION */}
+      {/* 1. HERO SECTION (INTERACTIVE TEMPORAL BELIEF GRAPH) */}
       <HeroSection
         onExploreGraph={scrollToStudio}
       />
 
-      {/* 2. THE PROBLEM ("Memory isn't truth") */}
+      {/* 2. THE PROBLEM ("Memory without time is not memory.") */}
       <ProblemSection />
 
       {/* 3. THE CORE DIFFERENCE (NAIVE VS CHRONOGRAPH MATRIX) */}
       <CoreDifferenceSection />
 
-      {/* 4. INTERACTIVE BELIEF EVOLVER ("Watch a belief evolve") */}
+      {/* 4. CORE CHRONOGRAPH VISUALIZATION ("Don't retrieve the latest memory. Resolve what was true.") */}
       <InteractiveBeliefEvolver />
 
-      {/* 5. EPISTEMIC STATES & INTERACTIVE UNKNOWN/CONFLICTED DEMOS */}
+      {/* 5. CINEMATIC BELIEF REPLAY ("PLAY MEMORY") */}
+      <BeliefReplaySection />
+
+      {/* 6. EPISTEMIC STATES & INTERACTIVE UNKNOWN/CONFLICTED DEMOS */}
       <EpistemicStatesSection />
 
-      {/* 6. EVIDENCE & LINEAGE ("Every belief has a history") */}
+      {/* 7. EVIDENCE & LINEAGE ("Every belief has a history") */}
       <EvidenceLineageSection />
 
-      {/* 7. ARCHITECTURE ("From memory to belief") */}
+      {/* 8. ARCHITECTURE ("From memory to belief") */}
       <ArchitectureSection />
 
-      {/* 8. BENCHMARK PROOF ("Temporal reasoning changes the answer") */}
+      {/* 9. BENCHMARK PROOF ("Temporal reasoning changes the answer") */}
       <BenchmarkSection />
 
-      {/* 9. BUILT ON HYDRADB SUBSTRATE */}
+      {/* 10. BUILT ON HYDRADB SUBSTRATE */}
       <HydraDBSection />
 
-      {/* 10. INTERACTIVE DEVELOPER STUDIO CONSOLE */}
+      {/* 11. INTERACTIVE DEVELOPER STUDIO CONSOLE */}
       <section id="interactive-studio" style={{ padding: '6rem 0 4rem 0', background: '#030509', borderTop: '1px solid #141822', scrollMarginTop: '4rem' }}>
         <div className="section-container" style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           
@@ -146,15 +151,15 @@ export default function App() {
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
               <span style={{ fontSize: '0.75rem', color: '#64748B', fontFamily: "'JetBrains Mono', monospace", fontWeight: '700' }}>QUICK PRESETS:</span>
               <button className="btn-infrastructure btn-infrastructure-secondary" style={{ padding: '0.4rem 0.75rem', fontSize: '0.75rem' }} onClick={handleLoadEditorScenario}>
-                <Zap size={13} color="#3B82F6" />
+                <Zap size={13} color="#FF7A18" />
                 VS Code → Cursor
               </button>
               <button className="btn-infrastructure btn-infrastructure-secondary" style={{ padding: '0.4rem 0.75rem', fontSize: '0.75rem' }} onClick={handleLoadContradictionScenario}>
-                <Zap size={13} color="#F87171" />
+                <Zap size={13} color="#FF4D5E" />
                 CONFLICTED State
               </button>
               <button className="btn-infrastructure btn-infrastructure-secondary" style={{ padding: '0.4rem 0.75rem', fontSize: '0.75rem' }} onClick={handleLoadAbsentQuery}>
-                <Zap size={13} color="#FBBF24" />
+                <Zap size={13} color="#00D9FF" />
                 UNKNOWN Fact
               </button>
             </div>
@@ -234,7 +239,10 @@ export default function App() {
         evidenceList={evidenceModalData}
       />
 
-      {/* 11. FOOTER SECTION */}
+      {/* 12. CLOSING SECTION ("AI shouldn't just remember.") */}
+      <ClosingSection onLaunchDemo={scrollToStudio} />
+
+      {/* 13. FOOTER SECTION */}
       <FooterSection />
 
     </div>
