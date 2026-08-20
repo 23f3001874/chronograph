@@ -77,6 +77,47 @@ h1, h2, h3, h4 {
   box-shadow: 0 0 35px rgba(0, 217, 255, 0.25);
 }
 
+/* NAVBAR BUTTONS & HOVER EFFECTS */
+.nav-link-item {
+  position: relative;
+  background: none;
+  border: none;
+  color: #8B95A5;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.45rem 0.875rem;
+  border-radius: 8px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.nav-link-item:hover {
+  color: #FFFFFF;
+  background: rgba(255, 122, 24, 0.12);
+  box-shadow: inset 0 0 0 1px rgba(255, 122, 24, 0.3);
+}
+
+.nav-link-item::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #FF7A18, #00D9FF);
+  transition: all 0.25s ease;
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+.nav-link-item:hover::after {
+  width: 70%;
+}
+
 /* Layout Utilities & Card Styles */
 .section-container {
   width: 100%;
