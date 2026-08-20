@@ -1,27 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 :root {
-  --bg-pitch: #000000;
-  --bg-dark: #050608;
-  --bg-surface: #0B0E14;
-  --bg-surface-hover: #121620;
-  --bg-card: #080A0E;
+  --bg-pitch: #040508;
+  --bg-dark: #07090D;
+  --bg-surface: #0B0F14;
+  --bg-surface-hover: #121822;
+  --bg-card: #080C12;
   
-  --border-subtle: #171A21;
-  --border-medium: #222733;
-  --border-bright: rgba(59, 130, 246, 0.4);
-  --border-cyan: rgba(0, 240, 255, 0.4);
+  --border-subtle: #141A24;
+  --border-medium: #1F2838;
+  --border-bright: rgba(255, 122, 24, 0.4);
+  --border-amber: rgba(255, 159, 67, 0.4);
+  --border-cyan: rgba(0, 217, 255, 0.4);
 
   --text-white: #FFFFFF;
-  --text-primary: #F8FAFC;
-  --text-secondary: #94A3B8;
-  --text-muted: #64748B;
+  --text-primary: #F5F7FA;
+  --text-secondary: #8B95A5;
+  --text-muted: #5A6474;
 
-  --accent-blue: #3B82F6;
-  --accent-cyan: #00F0FF;
-  --accent-green: #34D399;
-  --accent-amber: #FBBF24;
-  --accent-red: #F87171;
+  --accent-amber: #FF7A18;
+  --accent-orange: #FF9F43;
+  --accent-cyan: #00D9FF;
+  --accent-green: #35D07F;
+  --accent-red: #FF4D5E;
 
   --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -45,12 +46,13 @@ html, body {
   scroll-behavior: smooth;
 }
 
-/* Background Grid Pattern */
+/* Background Node & Grid Canvas */
 .bg-grid-pattern {
   background-image: 
+    radial-gradient(circle at 50% 0%, rgba(255, 122, 24, 0.12) 0%, transparent 60%),
     linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-  background-size: 32px 32px;
+  background-size: 100% 100%, 32px 32px, 32px 32px;
 }
 
 /* Typography Utilities */
@@ -67,12 +69,12 @@ h1, h2, h3, h4 {
   letter-spacing: 0.08em;
 }
 
-.glow-blue {
-  box-shadow: 0 0 35px rgba(59, 130, 246, 0.25);
+.glow-amber {
+  box-shadow: 0 0 35px rgba(255, 122, 24, 0.25);
 }
 
 .glow-cyan {
-  box-shadow: 0 0 35px rgba(0, 240, 255, 0.25);
+  box-shadow: 0 0 35px rgba(0, 217, 255, 0.25);
 }
 
 /* Layout Utilities & Card Styles */
@@ -92,7 +94,7 @@ h1, h2, h3, h4 {
 }
 
 .card:hover {
-  border-color: rgba(59, 130, 246, 0.35) !important;
+  border-color: rgba(255, 122, 24, 0.35) !important;
 }
 
 .card-title {
@@ -126,7 +128,7 @@ h1, h2, h3, h4 {
 }
 
 .input-control {
-  background: #04060A !important;
+  background: #05070B !important;
   border: 1px solid var(--border-medium) !important;
   border-radius: 8px !important;
   padding: 0.75rem 1rem !important;
@@ -141,14 +143,14 @@ h1, h2, h3, h4 {
 }
 
 .input-control:focus {
-  border-color: var(--accent-blue) !important;
-  box-shadow: 0 0 15px rgba(59, 130, 246, 0.3) !important;
+  border-color: var(--accent-amber) !important;
+  box-shadow: 0 0 15px rgba(255, 122, 24, 0.3) !important;
 }
 
 select.input-control {
   appearance: none !important;
   cursor: pointer !important;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2360A5FA' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FF9F43' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
   background-repeat: no-repeat !important;
   background-position: right 1rem center !important;
   background-size: 1.1em !important;
@@ -156,7 +158,7 @@ select.input-control {
 }
 
 select.input-control option {
-  background: #080A0F !important;
+  background: #0B0F14 !important;
   color: #FFFFFF !important;
 }
 
@@ -183,26 +185,26 @@ textarea.input-control {
 }
 
 .btn-primary {
-  background: var(--accent-blue) !important;
+  background: var(--accent-amber) !important;
   color: #FFFFFF !important;
-  border-color: var(--accent-blue) !important;
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.35) !important;
+  border-color: var(--accent-amber) !important;
+  box-shadow: 0 0 20px rgba(255, 122, 24, 0.35) !important;
 }
 
 .btn-primary:hover {
-  background: #2563EB !important;
-  box-shadow: 0 0 30px rgba(59, 130, 246, 0.5) !important;
-  transform: translateY(-1px);
+  background: #E66000 !important;
+  box-shadow: 0 0 30px rgba(255, 122, 24, 0.5) !important;
+  transform: translateY(-1px) !important;
 }
 
 .btn-secondary {
-  background: #0B0E14 !important;
+  background: #0B0F14 !important;
   color: var(--text-primary) !important;
   border: 1px solid var(--border-medium) !important;
 }
 
 .btn-secondary:hover {
-  background: #121620 !important;
+  background: #121822 !important;
   border-color: var(--text-secondary) !important;
   color: var(--text-white) !important;
 }
@@ -222,15 +224,15 @@ textarea.input-control {
 }
 
 .btn-infrastructure-primary {
-  background: var(--accent-blue);
+  background: var(--accent-amber);
   color: #FFFFFF;
-  border: 1px solid var(--accent-blue);
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.35);
+  border: 1px solid var(--accent-amber);
+  box-shadow: 0 0 20px rgba(255, 122, 24, 0.35);
 }
 
 .btn-infrastructure-primary:hover {
-  background: #2563EB;
-  box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+  background: #E66000;
+  box-shadow: 0 0 30px rgba(255, 122, 24, 0.5);
   transform: translateY(-1px);
 }
 
@@ -252,22 +254,33 @@ textarea.input-control {
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #000000;
+  background: #040508;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1F2430;
+  background: #1F2838;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3B82F6;
+  background: #FF7A18;
 }
 
-/* Pulse Keyframes */
+/* Node Pulse & Signal Animations */
 @keyframes pulseGlow {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 0.8; }
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.05); }
+}
+
+@keyframes signalTravel {
+  0% { stroke-dashoffset: 100; }
+  100% { stroke-dashoffset: 0; }
 }
 
 .animate-pulse-glow {
   animation: pulseGlow 3s infinite ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse-glow {
+    animation: none;
+  }
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRight, Play, CheckCircle2, Clock, GitBranch, ArrowDown, ShieldCheck } from 'lucide-react';
+import { ArrowRight, Clock, ArrowDown, ShieldCheck, CheckCircle2 } from 'lucide-react';
 
 export default function HeroSection({ onExploreGraph }) {
   const [sliderIndex, setSliderIndex] = useState(0); // 0: Jan 20, 1: Feb 20, 2: Mar 20
@@ -7,44 +7,35 @@ export default function HeroSection({ onExploreGraph }) {
   const timeStates = [
     {
       date: 'Jan 20, 2025',
-      isoDate: '2025-01-20T00:00:00Z',
       value: 'VS Code',
       status: 'SUPPORTED',
       confidence: '0.90',
-      reason: 'Observed assertion "I use VS Code for development" is valid.',
-      badgeColor: '#3B82F6',
       nodes: [
-        { date: 'Jan 20', value: 'VS Code', status: 'SUPPORTED', conf: '0.90', active: true },
-        { date: 'Feb 20', value: 'Cursor', status: 'FUTURE FACT (LOCKED)', conf: '0.00', active: false },
-        { date: 'Mar 20', value: 'VS Code', status: 'FUTURE FACT (LOCKED)', conf: '0.00', active: false },
+        { id: 'B1', date: 'Jan 20', value: 'VS Code', status: 'SUPPORTED', conf: '0.90', active: true },
+        { id: 'B2', date: 'Feb 20', value: 'Cursor', status: 'FUTURE FACT (LOCKED)', conf: '0.00', active: false },
+        { id: 'B3', date: 'Mar 20', value: 'VS Code', status: 'FUTURE FACT (LOCKED)', conf: '0.00', active: false },
       ]
     },
     {
       date: 'Feb 20, 2025',
-      isoDate: '2025-02-20T00:00:00Z',
       value: 'Cursor',
       status: 'SUPPORTED',
       confidence: '0.90',
-      reason: 'Observed assertion "I switched to Cursor" supersedes prior VS Code belief.',
-      badgeColor: '#00F0FF',
       nodes: [
-        { date: 'Jan 20', value: 'VS Code', status: 'SUPERSEDED', conf: '0.00', active: false },
-        { date: 'Feb 20', value: 'Cursor', status: 'SUPPORTED', conf: '0.90', active: true },
-        { date: 'Mar 20', value: 'VS Code', status: 'FUTURE FACT (LOCKED)', conf: '0.00', active: false },
+        { id: 'B1', date: 'Jan 20', value: 'VS Code', status: 'SUPERSEDED', conf: '0.00', active: false },
+        { id: 'B2', date: 'Feb 20', value: 'Cursor', status: 'SUPPORTED', conf: '0.90', active: true },
+        { id: 'B3', date: 'Mar 20', value: 'VS Code', status: 'FUTURE FACT (LOCKED)', conf: '0.00', active: false },
       ]
     },
     {
       date: 'Mar 20, 2025',
-      isoDate: '2025-03-20T00:00:00Z',
       value: 'VS Code',
-      status: 'SUPPORTED',
+      status: 'ACTIVE',
       confidence: '0.95',
-      reason: 'Observed assertion "I switched back to VS Code" supersedes Cursor belief.',
-      badgeColor: '#34D399',
       nodes: [
-        { date: 'Jan 20', value: 'VS Code', status: 'SUPERSEDED', conf: '0.00', active: false },
-        { date: 'Feb 20', value: 'Cursor', status: 'SUPERSEDED', conf: '0.00', active: false },
-        { date: 'Mar 20', value: 'VS Code', status: 'ACTIVE', conf: '0.95', active: true },
+        { id: 'B1', date: 'Jan 20', value: 'VS Code', status: 'SUPERSEDED', conf: '0.00', active: false },
+        { id: 'B2', date: 'Feb 20', value: 'Cursor', status: 'SUPERSEDED', conf: '0.00', active: false },
+        { id: 'B3', date: 'Mar 20', value: 'VS Code', status: 'ACTIVE', conf: '0.95', active: true },
       ]
     }
   ];
@@ -52,40 +43,46 @@ export default function HeroSection({ onExploreGraph }) {
   const currentState = timeStates[sliderIndex];
 
   return (
-    <section style={{ padding: '5rem 0 3rem 0', position: 'relative' }}>
+    <section style={{ padding: '5.5rem 0 3.5rem 0', position: 'relative' }} className="bg-grid-pattern">
       
-      {/* Subtle Background Glow */}
+      {/* Background Radial Glow */}
       <div style={{
-        position: 'absolute', top: '10%', right: '5%', width: '500px', height: '400px',
-        background: 'radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 70%)',
+        position: 'absolute', top: '15%', right: '5%', width: '550px', height: '420px',
+        background: 'radial-gradient(circle at 50% 50%, rgba(255, 122, 24, 0.12) 0%, transparent 70%)',
         pointerEvents: 'none', zIndex: 0
       }} />
 
-      <div className="section-container" style={{ position: 'relative', zIndex: 1, display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: '3.5rem', alignItems: 'center' }}>
+      <div className="section-container" style={{ position: 'relative', zIndex: 1, display: 'grid', gridTemplateColumns: '1.15fr 1fr', gap: '3.5rem', alignItems: 'center' }}>
         
-        {/* LEFT COLUMN: EDITORIAL HEADLINE */}
+        {/* LEFT COLUMN: HERO HEADLINE & COPY */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem', textAlign: 'left' }}>
           
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
-            <span className="mono-tag" style={{ color: '#00F0FF', background: 'rgba(0, 240, 255, 0.1)', padding: '0.2rem 0.6rem', borderRadius: '4px', border: '1px solid rgba(0, 240, 255, 0.25)' }}>
-              TEMPORAL BELIEF INFRASTRUCTURE FOR AI
+          {/* Status Line */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '0.75rem', fontFamily: "'JetBrains Mono', monospace", color: '#8B95A5' }}>
+            <span style={{ color: '#35D07F', display: 'flex', alignItems: 'center', gap: '0.35rem', fontWeight: '700' }}>
+              <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#35D07F', boxShadow: '0 0 8px #35D07F' }}></span>
+              LIVE
             </span>
+            <span>|</span>
+            <span>HydraDB Connected</span>
+            <span>|</span>
+            <span>Temporal Engine Ready</span>
           </div>
 
-          <h1 style={{ fontSize: '4.25rem', fontWeight: '800', lineHeight: '1.02', letterSpacing: '-0.04em', fontFamily: "'Space Grotesk', sans-serif" }}>
-            AI memory should know <br />
-            <span style={{ background: 'linear-gradient(135deg, #FFFFFF 0%, #3B82F6 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-              what was true.
+          <h1 style={{ fontSize: '4.5rem', fontWeight: '800', lineHeight: '1.02', letterSpacing: '-0.04em', fontFamily: "'Space Grotesk', sans-serif" }}>
+            Memory that <br />
+            <span style={{ background: 'linear-gradient(135deg, #FFFFFF 0%, #FF9F43 60%, #FF7A18 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+              knows WHEN.
             </span>
           </h1>
 
-          <p style={{ fontSize: '1.125rem', color: '#94A3B8', lineHeight: '1.65', maxWidth: '580px' }}>
-            ChronoGraph is a temporal belief engine built on <strong style={{ color: '#FFFFFF' }}>HydraDB Cloud</strong>. It reconstructs what an AI should believe at any point in time — without leaking future knowledge or inventing answers.
+          <p style={{ fontSize: '1.125rem', color: '#8B95A5', lineHeight: '1.65', maxWidth: '580px' }}>
+            ChronoGraph turns graph memory into temporal, evidence-grounded beliefs — so AI can answer what was true, what changed, what conflicts, and what it doesn't know.
           </p>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginTop: '0.5rem' }}>
             <button className="btn-infrastructure btn-infrastructure-primary" style={{ padding: '0.875rem 1.75rem', fontSize: '1rem' }} onClick={onExploreGraph}>
-              Explore the Graph
+              Try Live Demo
               <ArrowRight size={18} />
             </button>
             <a href="https://github.com/23f3001874/chronograph" target="_blank" rel="noopener noreferrer" className="btn-infrastructure btn-infrastructure-secondary" style={{ padding: '0.875rem 1.5rem', fontSize: '1rem' }}>
@@ -93,60 +90,65 @@ export default function HeroSection({ onExploreGraph }) {
             </a>
           </div>
 
-          {/* Substrate Tag */}
-          <div style={{ fontSize: '0.78125rem', fontFamily: "'JetBrains Mono', monospace", color: '#64748B', display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.5rem' }}>
+          <div style={{ fontSize: '0.78125rem', fontFamily: "'JetBrains Mono', monospace", color: '#5A6474', display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.5rem' }}>
             <span>Built for Hack Hydra 2026</span>
             <span>•</span>
-            <span style={{ color: '#60A5FA' }}>HydraDB Cloud Substrate</span>
+            <span style={{ color: '#FF9F43' }}>Track 03 — Memory & Context Retrieval</span>
           </div>
 
         </div>
 
-        {/* RIGHT COLUMN: LIVE ANIMATED BELIEF GRAPH & TIME MACHINE SLIDER */}
-        <div style={{ background: '#05070B', border: '1px solid #1F2430', borderRadius: '16px', padding: '1.75rem', display: 'flex', flexDirection: 'column', gap: '1.5rem', boxShadow: '0 20px 50px rgba(0,0,0,0.6)' }}>
+        {/* RIGHT COLUMN: TECHNICAL VISUALIZATION & TIME MACHINE SLIDER */}
+        <div style={{ background: '#070A10', border: '1px solid #1F2838', borderRadius: '16px', padding: '1.75rem', display: 'flex', flexDirection: 'column', gap: '1.5rem', boxShadow: '0 20px 50px rgba(0,0,0,0.7)' }}>
           
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #1A1D24', paddingBottom: '1rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #141A24', paddingBottom: '1rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <Clock size={16} color="#00F0FF" />
-              <span style={{ fontSize: '0.8125rem', fontFamily: "'JetBrains Mono', monospace", color: '#00F0FF', fontWeight: '700', textTransform: 'uppercase' }}>
-                LIVE TEMPORAL BELIEF RECONSTRUCTION
+              <Clock size={16} color="#FF7A18" />
+              <span style={{ fontSize: '0.8125rem', fontFamily: "'JetBrains Mono', monospace", color: '#FF9F43', fontWeight: '700', textTransform: 'uppercase' }}>
+                TEMPORAL STATE MACHINE VISUALIZATION
               </span>
             </div>
-            <span style={{ fontSize: '0.75rem', fontFamily: "'JetBrains Mono', monospace", color: '#34D399', background: 'rgba(52, 211, 153, 0.15)', padding: '0.15rem 0.5rem', borderRadius: '4px' }}>
-              POINT-IN-TIME RESOLVED
+            <span style={{ fontSize: '0.75rem', fontFamily: "'JetBrains Mono', monospace", color: '#35D07F', background: 'rgba(53, 208, 127, 0.15)', padding: '0.15rem 0.5rem', borderRadius: '4px' }}>
+              RESOLVED AT T
             </span>
           </div>
 
+          {/* Observation Anchor */}
+          <div style={{ background: '#0B0F18', border: '1px solid #1F2838', borderRadius: '8px', padding: '0.75rem 1rem', fontSize: '0.78125rem', fontFamily: "'JetBrains Mono', monospace" }}>
+            <span style={{ color: '#8B95A5' }}>OBSERVATION: </span>
+            <span style={{ color: '#F5F7FA', fontStyle: 'italic' }}>"I switched back to VS Code."</span>
+          </div>
+
           {/* Animated Belief Stack */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem' }}>
             {currentState.nodes.map((node, idx) => (
               <React.Fragment key={idx}>
                 
                 <div style={{
-                  background: node.active ? 'rgba(59, 130, 246, 0.12)' : '#080A0F',
-                  border: node.active ? '1px solid #3B82F6' : '1px solid #1A1D24',
-                  borderRadius: '10px', padding: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                  background: node.active ? 'rgba(255, 122, 24, 0.12)' : '#080C12',
+                  border: node.active ? '1px solid #FF7A18' : '1px solid #141A24',
+                  borderRadius: '10px', padding: '0.875rem 1rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                   transition: 'all 0.3s ease', opacity: node.status.includes('LOCKED') ? 0.4 : 1
                 }}>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                    <div style={{ fontSize: '0.75rem', fontFamily: "'JetBrains Mono', monospace", color: '#94A3B8' }}>
-                      DATE: {node.date}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
+                    <div style={{ fontSize: '0.6875rem', fontFamily: "'JetBrains Mono', monospace", color: '#8B95A5' }}>
+                      BELIEF {node.id} • {node.date}
                     </div>
-                    <div style={{ fontSize: '1.125rem', fontWeight: '800', color: node.active ? '#FFFFFF' : '#64748B' }}>
+                    <div style={{ fontSize: '1rem', fontWeight: '800', color: node.active ? '#FFFFFF' : '#5A6474' }}>
                       "{node.value}"
                     </div>
                   </div>
 
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.25rem' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.2rem' }}>
                     <span style={{
                       fontSize: '0.6875rem', fontFamily: "'JetBrains Mono', monospace", fontWeight: '700',
-                      color: node.active ? '#34D399' : (node.status === 'SUPERSEDED' ? '#FBBF24' : '#64748B'),
-                      background: node.active ? 'rgba(52, 211, 153, 0.15)' : 'rgba(255,255,255,0.05)',
+                      color: node.active ? '#35D07F' : (node.status === 'SUPERSEDED' ? '#FF9F43' : '#5A6474'),
+                      background: node.active ? 'rgba(53, 208, 127, 0.15)' : 'rgba(255,255,255,0.04)',
                       padding: '0.15rem 0.5rem', borderRadius: '4px'
                     }}>
                       {node.status}
                     </span>
-                    <span style={{ fontSize: '0.75rem', fontFamily: "'JetBrains Mono', monospace", color: '#60A5FA' }}>
+                    <span style={{ fontSize: '0.75rem', fontFamily: "'JetBrains Mono', monospace", color: '#00D9FF' }}>
                       CONF: {node.conf}
                     </span>
                   </div>
@@ -154,7 +156,7 @@ export default function HeroSection({ onExploreGraph }) {
 
                 {idx < currentState.nodes.length - 1 && (
                   <div style={{ display: 'flex', justifyContent: 'center', opacity: 0.5 }}>
-                    <ArrowDown size={14} color="#60A5FA" />
+                    <ArrowDown size={14} color="#FF9F43" />
                   </div>
                 )}
 
@@ -163,10 +165,10 @@ export default function HeroSection({ onExploreGraph }) {
           </div>
 
           {/* TIME MACHINE SLIDER MICRO-INTERACTION */}
-          <div style={{ background: '#080C14', border: '1px solid rgba(59, 130, 246, 0.3)', borderRadius: '12px', padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.75rem', fontFamily: "'JetBrains Mono', monospace", color: '#94A3B8' }}>
-              <span>TIME MACHINE SLIDER:</span>
-              <span style={{ color: '#00F0FF', fontWeight: '700' }}>T = {currentState.date}</span>
+          <div style={{ background: '#090E16', border: '1px solid rgba(255, 122, 24, 0.3)', borderRadius: '12px', padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.875rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.75rem', fontFamily: "'JetBrains Mono', monospace", color: '#8B95A5' }}>
+              <span>TIME SLIDER RESOLUTION:</span>
+              <span style={{ color: '#FF7A18', fontWeight: '700' }}>T = {currentState.date}</span>
             </div>
 
             <input
@@ -176,23 +178,23 @@ export default function HeroSection({ onExploreGraph }) {
               step="1"
               value={sliderIndex}
               onChange={(e) => setSliderIndex(parseInt(e.target.value))}
-              style={{ width: '100%', cursor: 'pointer', accentColor: '#00F0FF' }}
+              style={{ width: '100%', cursor: 'pointer', accentColor: '#FF7A18' }}
             />
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.6875rem', fontFamily: "'JetBrains Mono', monospace", color: '#64748B' }}>
-              <span style={{ color: sliderIndex === 0 ? '#3B82F6' : '#64748B', fontWeight: sliderIndex === 0 ? '700' : '400' }}>JAN 20 (VS Code)</span>
-              <span style={{ color: sliderIndex === 1 ? '#00F0FF' : '#64748B', fontWeight: sliderIndex === 1 ? '700' : '400' }}>FEB 20 (Cursor)</span>
-              <span style={{ color: sliderIndex === 2 ? '#34D399' : '#64748B', fontWeight: sliderIndex === 2 ? '700' : '400' }}>MAR 20 (VS Code)</span>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.6875rem', fontFamily: "'JetBrains Mono', monospace", color: '#5A6474' }}>
+              <span style={{ color: sliderIndex === 0 ? '#FF7A18' : '#5A6474', fontWeight: sliderIndex === 0 ? '700' : '400' }}>JAN 20 (VS Code)</span>
+              <span style={{ color: sliderIndex === 1 ? '#00D9FF' : '#5A6474', fontWeight: sliderIndex === 1 ? '700' : '400' }}>FEB 20 (Cursor)</span>
+              <span style={{ color: sliderIndex === 2 ? '#35D07F' : '#5A6474', fontWeight: sliderIndex === 2 ? '700' : '400' }}>MAR 20 (VS Code)</span>
             </div>
 
             {/* Resolved Active State Output Box */}
-            <div style={{ background: '#030509', border: '1px solid #1E3A8A', borderRadius: '8px', padding: '0.75rem 1rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ background: '#04060A', border: '1px solid #FF7A18', borderRadius: '8px', padding: '0.75rem 1rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <div>
-                <span style={{ fontSize: '0.6875rem', color: '#94A3B8', fontFamily: "'JetBrains Mono', monospace" }}>Resolved Value at T:</span>
+                <span style={{ fontSize: '0.6875rem', color: '#8B95A5', fontFamily: "'JetBrains Mono', monospace" }}>Resolved Answer at T:</span>
                 <div style={{ fontSize: '1rem', fontWeight: '800', color: '#FFFFFF' }}>{currentState.value}</div>
               </div>
-              <div style={{ fontSize: '0.75rem', fontFamily: "'JetBrains Mono', monospace", color: '#34D399', fontWeight: '700' }}>
-                Confidence {currentState.confidence}
+              <div style={{ fontSize: '0.75rem', fontFamily: "'JetBrains Mono', monospace", color: '#35D07F', fontWeight: '700' }}>
+                {currentState.status} ({currentState.confidence})
               </div>
             </div>
           </div>
