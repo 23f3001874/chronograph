@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRight, Clock, ArrowDown, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, Clock, ArrowDown, ShieldCheck } from 'lucide-react';
 
 export default function HeroSection({ onExploreGraph }) {
   const [sliderIndex, setSliderIndex] = useState(0); // 0: Jan 20, 1: Feb 20, 2: Mar 20
@@ -69,15 +69,15 @@ export default function HeroSection({ onExploreGraph }) {
             <span>Temporal Engine Ready</span>
           </div>
 
-          <h1 style={{ fontSize: '4.5rem', fontWeight: '800', lineHeight: '1.02', letterSpacing: '-0.04em', fontFamily: "'Space Grotesk', sans-serif" }}>
-            Memory that <br />
+          <h1 style={{ fontSize: '4.25rem', fontWeight: '800', lineHeight: '1.05', letterSpacing: '-0.04em', fontFamily: "'Space Grotesk', sans-serif" }}>
+            AI memory should <br />
             <span style={{ background: 'linear-gradient(135deg, #FFFFFF 0%, #FF9F43 60%, #FF7A18 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-              knows WHEN.
+              know what was true.
             </span>
           </h1>
 
           <p style={{ fontSize: '1.125rem', color: '#8B95A5', lineHeight: '1.65', maxWidth: '580px' }}>
-            ChronoGraph turns graph memory into temporal, evidence-grounded beliefs — so AI can answer what was true, what changed, what conflicts, and what it doesn't know.
+            ChronoGraph turns raw memories into temporally versioned beliefs — with evidence, lineage, contradiction detection, and explicit uncertainty.
           </p>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginTop: '0.5rem' }}>
